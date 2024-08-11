@@ -82,3 +82,12 @@ CREATE TABLE productos_recogida (
     FOREIGN KEY (pr_id_facturas) REFERENCES facturas_recogida(fr_id),    -- Связь с таблицей facturas_recogida
     FOREIGN KEY (pr_id_productos) REFERENCES productos(id_product)       -- Связь с таблицей productos
 );
+
+INSERT INTO usuarios (u_nombre, u_login, u_password, u_role) 
+VALUES 
+('Oleg', 'oleg', 'securepassword1', 'admin'),
+('María García', 'maria.garcia', 'securepassword2', 'manager'),
+('Carlos Rodríguez', 'carlos.rodriguez', 'securepassword3', 'cliente'),
+('Ana López', 'ana.lopez', 'securepassword4', 'vendedor'),
+('José Fernández', 'jose.fernandez', 'securepassword5', 'receptor'),
+('Elena Gómez', 'elena.gomez', 'securepassword6', 'recogedor');
