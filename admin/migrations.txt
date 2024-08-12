@@ -41,3 +41,110 @@ class CreateProductosTable extends Migration
         Schema::dropIfExists('productos');
     }
 }
+
+
+        Schema::create('facturas_entrega', function (Blueprint $table) {
+            $table->id('fe_id');                             // Уникальный идентификатор фактуры
+            $table->unsignedBigInteger('fe_id_vendor');      // Идентификатор пользователя-продавца
+            $table->date('fe_fecha');                        // Дата фактуры отправки
+            $table->decimal('fe_suma', 10, 2);               // Сумма фактуры отправленной
+            $table->unsignedBigInteger('fe_id_receptor');    // Идентификатор пользователя-приемщика
+            $table->date('fe_fecha_recepcion');              // Дата фактуры приема
+            $table->decimal('fe_suma_recepcion', 10, 2);     // Сумма фактуры принятой
+            $table->boolean('fe_aceptado');                  // Флаг принятия заказа (true или false)
+            $table->timestamps();                            // Поля created_at и updated_at
+
+            // Определение внешних ключей
+            $table->foreign('fe_id_vendor')
+                  ->references('id_usuario')
+                  ->on('usuarios')
+                  ->onDelete('cascade');
+
+            $table->foreign('fe_id_receptor')
+                  ->references('id_usuario')
+                  ->on('usuarios')
+                  ->onDelete('cascade');
+        });
+
+
+
+        Schema::create('productos_entrega', function (Blueprint $table) {
+            $table->unsignedBigInteger('pe_id_facturas');     // Идентификатор фактуры, связан с таблицей facturas_entrega
+            $table->unsignedBigInteger('pe_id_productos');    // Идентификатор продукта, связан с таблицей productos
+            $table->integer('pe_cantidad_entregada');         // Количество отгруженного товара
+            $table->integer('pe_cantidad_aceptada');          // Количество принятого товара
+            $table->decimal('pe_suma_entregada', 10, 2);      // Сумма за отгруженный товар
+            $table->decimal('pe_suma_aceptada', 10, 2);       // Сумма за принятый товар
+            $table->boolean('pe_aceptado');                   // Флаг принятия (true или false)
+            $table->date('pe_fecha_entrega');                 // Дата отгрузки товара
+            $table->date('pe_fecha_aceptacion');              // Дата принятия товара
+
+            // Уникальный составной ключ на основе пары pe_id_facturas и pe_id_productos
+            $table->primary(['pe_id_facturas', 'pe_id_productos']);
+
+            // Связь с таблицей facturas_entrega
+            $table->foreign('pe_id_facturas')
+                  ->references('fe_id')
+                  ->on('facturas_entrega')
+                  ->onDelete('cascade');
+
+            // Связь с таблицей productos
+            $table->foreign('pe_id_productos')
+                  ->references('id_product')
+                  ->on('productos')
+                  ->onDelete('cascade');
+        });
+
+
+
+        Schema::create('facturas_recogida', function (Blueprint $table) {
+            $table->id('fr_id');                            // Уникальный идентификатор фактуры
+            $table->unsignedBigInteger('fr_id_cliente');    // Идентификатор пользователя-клиента, ссылается на таблицу usuarios
+            $table->date('fr_fecha_pedido');                // Дата фактуры-заказа
+            $table->decimal('fr_suma_pedido', 10, 2);       // Сумма фактуры-заказа с двумя знаками после запятой
+            $table->unsignedBigInteger('fr_id_recogedor');  // Идентификатор пользователя-сборщика, ссылается на таблицу usuarios
+            $table->date('fr_fecha_recogida');              // Дата фактуры-сборки
+            $table->decimal('fr_suma_recogida', 10, 2);     // Сумма фактуры-сборки с двумя знаками после запятой
+            $table->boolean('fr_aceptado');                 // Флаг принятия (true или false)
+
+            // Связь с таблицей usuarios для клиента
+            $table->foreign('fr_id_cliente')
+                  ->references('id_usuario')
+                  ->on('usuarios')
+                  ->onDelete('cascade');
+
+            // Связь с таблицей usuarios для сборщика
+            $table->foreign('fr_id_recogedor')
+                  ->references('id_usuario')
+                  ->on('usuarios')
+                  ->onDelete('cascade');
+        });
+
+
+        Schema::create('productos_recogida', function (Blueprint $table) {
+            $table->unsignedBigInteger('pr_id_facturas');               // Идентификатор фактуры, связан с таблицей facturas_recogida
+            $table->unsignedBigInteger('pr_id_productos');              // Идентификатор продукта, связан с таблицей productos
+            $table->integer('pr_cantidad_pedida');                      // Количество заказанного товара
+            $table->integer('pr_cantidad_recogida');                    // Количество принятого товара
+            $table->decimal('pr_suma_pedida', 10, 2);                   // Сумма за заказанный товар
+            $table->decimal('pr_suma_recogida', 10, 2);                 // Сумма за принятый товар
+            $table->boolean('pr_aceptado');                             // Флаг принятия (true или false)
+            $table->date('pr_fecha_pedida');                            // Дата заказа товара
+            $table->date('pr_fecha_recogida');                          // Дата сбора товара
+
+            // Уникальный составной ключ на основе пары pr_id_facturas и pr_id_productos
+            $table->primary(['pr_id_facturas', 'pr_id_productos']);
+
+            // Связь с таблицей facturas_recogida
+            $table->foreign('pr_id_facturas')
+                  ->references('fr_id')
+                  ->on('facturas_recogida')
+                  ->onDelete('cascade');
+
+            // Связь с таблицей productos
+            $table->foreign('pr_id_productos')
+                  ->references('id_product')
+                  ->on('productos')
+                  ->onDelete('cascade');
+        });
+
