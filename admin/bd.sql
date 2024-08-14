@@ -81,3 +81,14 @@ CREATE TABLE productos_entrega (
     FOREIGN KEY (fr_id_facturas) REFERENCES facturas_recogida(fr_id),   -- Связь с таблицей facturas_entrega
     FOREIGN KEY (fr_id_productos) REFERENCES productos(id_product)  -- Связь с таблицей productos
 );
+
+/*
+
+CREATE TABLE usuarios (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,  -- Уникальный идентификатор пользователя
+    u_nombre VARCHAR(255) NOT NULL,             -- Имя пользователя
+    u_login VARCHAR(100) NOT NULL UNIQUE,       -- Логин пользователя, должен быть уникальным
+    u_password VARCHAR(255) NOT NULL,           -- Пароль пользователя
+    u_role ENUM('admin', 'manager','cliente', 'vendedor','receptor', 'recogedor') NOT NULL       -- Роль пользователя (например, 'admin' или 'user')
+);
+*/
