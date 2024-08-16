@@ -25,3 +25,36 @@
 <style>
 
 </style>
+
+<form action="/upload" method="POST" enctype="multipart/form-data">
+    @csrf
+    <label for="image">Upload an image:</label>
+    
+    <!-- Поле загрузки изображения -->
+    <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
+
+    <br><br>
+
+    <!-- Превью изображения -->
+    <img id="imagePreview" src="{{ $product->image ? asset('storage/' . $product->image) : '#' }}" alt="Image Preview"
+        style="{{ $product->image ? 'display:block;' : 'display:none;' }} max-width: 200px; max-height: 200px;">
+
+    <br><br>
+    <button type="submit">Upload</button>
+</form>
+
+<script>
+    function previewImage(event) {
+        const reader = new FileReader();
+        const imageField = document.getElementById("imagePreview");
+
+        reader.onload = function(){
+            if(reader.readyState == 2){
+                imageField.style.display = "block";
+                imageField.src = reader.result;
+            }
+        }
+
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
