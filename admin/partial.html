@@ -88,3 +88,102 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 </script>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Click Tracker</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Пример кнопок -->
+    <button class="anadir" id="button1">Button 1</button>
+    <button class="anadir" id="button2">Button 2</button>
+    <button class="anadir" id="button3">Button 3</button>
+
+    <!-- Таблица для отображения результатов -->
+    <table>
+        <thead>
+            <tr>
+                <th>Button ID</th>
+                <th>Click Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="factura-nueva"></tr>
+        </tbody>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Объект для хранения количества нажатий для каждой кнопки
+    const clickCounts = {};
+
+    // Функция для обработки нажатий на кнопки
+    function handleButtonClick(event) {
+        const buttonId = event.target.id;
+        
+        // Проверка, существует ли уже запись для данной кнопки
+        if (!clickCounts[buttonId]) {
+            clickCounts[buttonId] = 0;
+        }
+
+        // Увеличение счетчика для данной кнопки
+        clickCounts[buttonId]++;
+        
+        // Логирование текущего количества нажатий
+        console.log(`Button ${buttonId} clicked ${clickCounts[buttonId]} times`);
+
+        // Обновление таблицы
+        updateTable(buttonId, clickCounts[buttonId]);
+    }
+
+    // Функция для обновления таблицы
+    function updateTable(buttonId, count) {
+        const tableBody = document.querySelector('tbody');
+        const existingRow = Array.from(tableBody.querySelectorAll('tr')).find(row => row.dataset.buttonId === buttonId);
+        
+        if (existingRow) {
+            // Обновление существующей строки
+            existingRow.querySelector('.click-count').textContent = count;
+        } else {
+            // Создание новой строки в таблице
+            const newRow = document.createElement('tr');
+            newRow.dataset.buttonId = buttonId;
+            newRow.innerHTML = `
+                <td>${buttonId}</td>
+                <td class="click-count">${count}</td>
+            `;
+            tableBody.appendChild(newRow);
+        }
+    }
+
+    // Получение всех кнопок с классом 'anadir'
+    const buttons = document.querySelectorAll('.anadir');
+
+    // Добавление обработчика событий на каждую кнопку
+    buttons.forEach(button => {
+        button.addEventListener('click', handleButtonClick);
+    });
+});
+
+</script>
