@@ -58,7 +58,33 @@
         reader.readAsDataURL(event.target.files[0]);
     }
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Объект для хранения количества нажатий для каждой кнопки
+    const clickCounts = {};
 
-<style>
-    
-</style>
+    // Функция для обработки нажатий на кнопки
+    function handleButtonClick(event) {
+        const buttonId = event.target.id;
+        
+        // Проверка, существует ли уже запись для данной кнопки
+        if (!clickCounts[buttonId]) {
+            clickCounts[buttonId] = 0;
+        }
+
+        // Увеличение счетчика для данной кнопки
+        clickCounts[buttonId]++;
+        
+        // Логирование текущего количества нажатий
+        console.log(`Button ${buttonId} clicked ${clickCounts[buttonId]} times`);
+    }
+
+    // Получение всех кнопок с классом 'anadir'
+    const buttons = document.querySelectorAll('.anadir');
+
+    // Добавление обработчика событий на каждую кнопку
+    buttons.forEach(button => {
+        button.addEventListener('click', handleButtonClick);
+    });
+});
+</script>
