@@ -187,3 +187,53 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 </script>
 
+
+<script>
+    // Отправка данных JSON в контроллер
+
+
+Для использования чистого fetch вместо axios в JavaScript, необходимо немного изменить код в вашем представлении. Вот как вы можете отправить JSON-данные на сервер с помощью fetch:
+
+Пример использования fetch
+html
+Копировать код
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send JSON to Laravel Controller</title>
+</head>
+<body>
+    <button id="sendData">Send Data</button>
+
+    <script>
+        document.getElementById('sendData').addEventListener('click', function() {
+            // Пример данных в формате JSON
+            const data = [
+                { id: 1, name: 'Product A', price: 10.0 },
+                { id: 2, name: 'Product B', price: 20.0 }
+            ];
+
+            fetch('/process-data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ json: data })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Data sent successfully:', data);
+            })
+            .catch(error => {
+                console.error('Error sending data:', error);
+            });
+        });
+    </script>
+
+    <!-- CSRF Token for Laravel -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+</script>
+
