@@ -218,6 +218,27 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     <!-- CSRF Token for Laravel -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
+    public function store(Request $request)
+    {
+        // Получите массив объектов из запроса
+        $products = $request->input('products');
+
+        // Обработайте данные и сохраните их в базу данных
+        foreach ($products as $product) {
+            Factura::updateOrCreate(
+                ['id' => $product['id']], // Поиск по ID для обновления существующих записей
+                [
+                    'name' => $product['name'],
+                    'price' => $product['price']
+                ]
+            );
+        }
+
+        // Верните успешный ответ
+        return response()->json(['message' => 'Data processed successfully!']);
+    }
     
 </script>
 
