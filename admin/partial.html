@@ -239,6 +239,35 @@ document.addEventListener('DOMContentLoaded', (event) => {
         // Верните успешный ответ
         return response()->json(['message' => 'Data processed successfully!']);
     }
+
+
+
+    namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Mercancia extends Model
+{
+    // Указываем, что таблица имеет составной ключ
+    public $incrementing = false; // Отключаем автоинкремент, так как ключ составной
+
+    protected $primaryKey = ['m_id_factura', 'm_id_producto']; // Составной ключ
+
+    public $timestamps = false; // Если у вас нет полей created_at и updated_at
+
+    // Метод для работы с составным ключом
+    protected function getKeyName()
+    {
+        return $this->primaryKey;
+    }
+
+    // Переопределите метод для получения составного ключа
+    public function getKey()
+    {
+        return [$this->m_id_factura, $this->m_id_producto];
+    }
+}
+
     
 </script>
 
