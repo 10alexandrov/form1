@@ -220,6 +220,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
+    <script>
+
     public function store(Request $request)
     {
         // Получите массив объектов из запроса
@@ -240,7 +242,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return response()->json(['message' => 'Data processed successfully!']);
     }
 
-
+</script>
 
     namespace App\Models;
 
@@ -268,6 +270,4 @@ class Mercancia extends Model
     }
 }
 
-    
-</script>
 
