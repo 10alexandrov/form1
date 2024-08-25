@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-    <script>
+    <script></script>
 
     public function store(Request $request)
     {
@@ -242,7 +242,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return response()->json(['message' => 'Data processed successfully!']);
     }
 
-</script>
 
 
     namespace App\Models;
