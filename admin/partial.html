@@ -271,17 +271,54 @@ class Mercancia extends Model
 }
 
 
-export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }),
-     provideRouter(routes),
-      provideClientHydration(),
-    importProvidersFrom(provideHttpClient())]
-};
+import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
-        Argument of type 'EnvironmentProviders' is not assignable to parameter of type 'ImportProvidersSource'.ts(2345)
+interface Producto {
+  product_id: number;
+  p_nombre: string;
+  p_category: number;
+  p_foto: ArrayBuffer; // Или тип Uint8Array, если используется
+}
 
-          getProductos2 (): Observable<IProduct[]> {
-    return this.http.get<productos: IProduct[]>(this.productUrl).pipe(
-      map(response => response.productos)
-    );
+@Component({
+  selector: 'app-producto-list',
+  templateUrl: './producto-list.component.html',
+  styleUrls: ['./producto-list.component.css']
+})
+export class ProductoListComponent implements OnInit {
+  productos: Producto[] = [];
+  productosConImagen: { producto: Producto, imagenUrl: SafeUrl }[] = [];
+
+  constructor(private sanitizer: DomSanitizer) {}
+
+  ngOnInit(): void {
+    // Предполагается, что массив productos уже инициализирован
+    this.productos.forEach(producto => {
+      const contentType = this.detectImageFormat(producto.p_foto); // Определяем формат изображения
+      const base64String = this.arrayBufferToBase64(producto.p_foto);
+      const imagenUrl = this.sanitizer.bypassSecurityTrustUrl(`data:${contentType};base64,${base64String}`);
+      this.productosConImagen.push({ producto, imagenUrl });
+    });
   }
+
+  arrayBufferToBase64(buffer: ArrayBuffer): string {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+  }
+
+  detectImageFormat(buffer: ArrayBuffer): string {
+    const bytes = new Uint8Array(buffer);
+    if (bytes[0] === 0xFF && bytes[1] === 0xD8 && bytes[2] === 0xFF) {
+      return 'image/jpeg'; // JPEG
+    } else if (bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4E && bytes[3] === 0x47) {
+      return 'image/png'; // PNG
+    }
+    return 'image/jpeg'; // Дефолтный тип, если формат не распознан
+  }
+}
