@@ -271,9 +271,11 @@ class Mercancia extends Model
 }
 
 
-Route::get('/producto', [ProductoController::class, 'index']);
+export const appConfig: ApplicationConfig = {
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }),
+     provideRouter(routes),
+      provideClientHydration(),
+    importProvidersFrom(provideHttpClient())]
+};
 
-    public function index()
-    {
-        return Producto::all();
-    }
+        Argument of type 'EnvironmentProviders' is not assignable to parameter of type 'ImportProvidersSource'.ts(2345)
