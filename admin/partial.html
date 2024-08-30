@@ -279,3 +279,9 @@ export const appConfig: ApplicationConfig = {
 };
 
         Argument of type 'EnvironmentProviders' is not assignable to parameter of type 'ImportProvidersSource'.ts(2345)
+
+          getProductos2 (): Observable<IProduct[]> {
+    return this.http.get<productos: IProduct[]>(this.productUrl).pipe(
+      map(response => response.productos)
+    );
+  }
