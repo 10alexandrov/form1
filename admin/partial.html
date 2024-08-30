@@ -270,5 +270,10 @@ class Mercancia extends Model
     }
 }
 
-<script>
-    </script>
+
+Route::get('/producto', [ProductoController::class, 'index']);
+
+    public function index()
+    {
+        return Producto::all();
+    }
