@@ -271,16 +271,6 @@ class Mercancia extends Model
 }
 
 
-import { Component, OnInit } from '@angular/core';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-
-interface Producto {
-  product_id: number;
-  p_nombre: string;
-  p_category: number;
-  p_foto: ArrayBuffer; // Или тип Uint8Array, если используется
-}
-
 @Component({
   selector: 'app-producto-list',
   templateUrl: './producto-list.component.html',
