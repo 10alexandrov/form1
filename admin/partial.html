@@ -332,3 +332,10 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
 ];
+
+
+export function matchEmail(c: AbstractControl): { [key: string]: any } {
+const email = c.get('email').value;
+const email2 = c.get('emailConfirm').value;
+return email === email2 ? null : { match: true };
+}
