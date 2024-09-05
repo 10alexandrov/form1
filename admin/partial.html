@@ -1,11 +1,3 @@
-<form action="/upload" method="POST" enctype="multipart/form-data">
-    <label for="image">Upload an image:</label>
-    <input type="file" id="image" name="image" accept="image/*" required onchange="previewImage(event)">
-    <br><br>
-    <img id="imagePreview" src="#" alt="Image Preview" style="display:none; max-width: 200px; max-height: 200px;">
-    <br><br>
-    <button type="submit">Upload</button>
-</form>
 
 <script>
     function previewImage(event) {
