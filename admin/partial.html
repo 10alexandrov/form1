@@ -323,3 +323,14 @@ export const routes: Routes = [
   { path: 'about', component: AboutComponent },
 ];
 
+    this.formCreateUser = this.fb.group({
+       u_nombre: ['', Validators.required],
+       u_login: ['', Validators.required],
+       passGroup: this.fb.group({
+        u_password: ['', Validators.required],
+        u_password2: ['', Validators.required],
+       }, { validator: matchPassword }),
+        u_role: ['', Validators.required],
+        receiveInfo: new FormControl(true) });
+      }
+
