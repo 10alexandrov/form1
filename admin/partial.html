@@ -1,5 +1,18 @@
 
 <script>
+            function previewImage(event) {
+        const reader = new FileReader();
+        const imageField = document.getElementById("imagePreview");
+
+        reader.onload = function(){
+            if(reader.readyState == 2){
+                imageField.style.display = "block";
+                imageField.src = reader.result;
+            }
+        }
+
+        reader.readAsDataURL(event.target.files[0]);
+    }
 
 
 </script>
