@@ -1,3 +1,24 @@
+       $user = new User;
+       $user->email = $request->email;
+       $user->password = $request->password;
+       $user->fbId = $request->fbId;
+       $user->ggId = $request->ggId;
+       $user->firstName = $request->firstName;
+       $user->lastName = $request->lastName;
+       $user->imageUrl = $request->imageUrl;
+       $user->country = $request->country;
+       $user->mobile = $request->mobile;
+       $user->gender = $request->gender;
+       $user->client = $request->client;
+
+       $user->save();
+
+       return Response::json(array(
+           'error' => false,
+           'userId' => $user->id),
+           200
+       );
+
 Allow: GET, HEAD, PUT, PATCH, DELETE
 
 
