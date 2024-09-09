@@ -1,4 +1,7 @@
-
+	  deleteEvent(id: number): Observable<void> {
+		const deleteURL = `/eventos/${id}`;
+		return this.http.delete<void>(deleteURL);
+	  }
 
 
 Allow: GET, HEAD, PUT, PATCH, DELETE
