@@ -1,6 +1,28 @@
-	  deleteEvent(id: number): Observable<void> {
-		const deleteURL = `/eventos/${id}`;
-		return this.http.delete<void>(deleteURL);
+	  deleteObject(title: string): void {
+		const eventoToDelete = this.filteredEvento.find(evento => evento.title === title);
+	  
+		if (eventoToDelete) {
+		  const idToDelete = eventoToDelete.id;
+	  
+		  if (idToDelete) {
+			this.eventosService.deleteEvent(idToDelete).subscribe(
+			  () => {
+				console.log(`Evento with title ${title} and id ${idToDelete} deleted successfully.`);
+				const index = this.filteredEvento.indexOf(eventoToDelete);
+				if (index !== -1) {
+				  this.filteredEvento.splice(index, 1);
+				}
+			  },
+			  (error) => {
+				console.error(`Error deleting evento with title ${title} and id ${idToDelete}: ${error}`);
+			  }
+			);
+		  } else {
+			console.error(`Evento with title ${title} has no id.`);
+		  }
+		} else {
+		  console.error(`Evento with title ${title} not found.`);
+		}
 	  }
 
 
