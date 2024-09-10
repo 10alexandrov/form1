@@ -1,4 +1,18 @@
-<app-evento-item [event] = "event" (onDelete)="deleteObject($event)"></app-evento-item>
+volverListaUsuarias ($flag: boolean) {
+  this.regimenMostrar = false;   // Apagar el modo de visualisar de usuario
+  this.regimenCrear = false;   // Apagar el modo de crear de usuario
+
+  if ($flag) this.obtenerListaUsuarios();
+}
+
+// funccion para obtener la lista con todas usuarios
+obtenerListaUsuarios() {
+  this.usuariosService.getUsuarios().subscribe (
+    (data) => {this.usuarios = data;},
+    (error) => { console.log('Error data de producto', error)}
+  );
+
+}
 
 
 
