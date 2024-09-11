@@ -1,15 +1,21 @@
+// Группируем все защищенные маршруты
 Route::group(['middleware' => 'auth:api'], function () {
+    // Доступные только для авторизованных пользователей
     Route::get('/user', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
+    
+    // Ресурсные маршруты для аутентифицированных пользователей
+    Route::resource('/productos', ApiProductoController::class)->names("productos");
+    Route::resource('/categorias', ApiCategoriaController::class)->names("categorias");
+    Route::resource('/usuarios', ApiUsuarioController::class)->except(['store'])->names("usuarios");  // исключаем 'store'
+    Route::resource('/facturas', ApiFacturaController::class)->names("facturas");
 });
 
+// Маршрут для логина и регистрации (не требует авторизации)
 Route::post('/login', [AuthController::class, 'login']);
 
-
-php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
-
-
-Class 'Tymon\JWTAuth\Providers\LaravelServiceProvider' not found 
+// Маршрут для создания нового пользователя (регистрация)
+Route::post('/usuarios', [ApiUsuarioController::class, 'store'])->middleware('cors');
 
 
 regimenMostrar:boolean = false;   // encender regimen entre lista de productos/mostrar usuarios
