@@ -1,15 +1,32 @@
-// Группируем все защищенные маршруты
-Route::group(['middleware' => 'auth:api'], function () {
-    // Доступные только для авторизованных пользователей
-    Route::get('/user', [AuthController::class, 'me']);
-    Route::post('/logout', [AuthController::class, 'logout']);
-    
-    // Ресурсные маршруты для аутентифицированных пользователей
-    Route::resource('/productos', ApiProductoController::class)->names("productos");
-    Route::resource('/categorias', ApiCategoriaController::class)->names("categorias");
-    Route::resource('/usuarios', ApiUsuarioController::class)->except(['store'])->names("usuarios");  // исключаем 'store'
-    Route::resource('/facturas', ApiFacturaController::class)->names("facturas");
-});
+namespace App\Models;
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+
+class User extends Authenticatable implements JWTSubject
+{
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    // Реализуем методы JWTSubject
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+}
+
+
 
 // Маршрут для логина и регистрации (не требует авторизации)
 Route::post('/login', [AuthController::class, 'login']);
