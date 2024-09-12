@@ -1,8 +1,18 @@
-    "message": "Undefined index: password", "file": "/home/alumno/Desktop/Almacen/almacen/vendor/laravel/framework/src/Illuminate/Auth/EloquentUserProvider.php",
+public function login(Request $request)
+{
+    $credentials = $request->only('email', 'u_password');
+    
+    \Log::info('Attempting login with credentials:', $credentials);
+    
+    if (!$token = JWTAuth::attempt($credentials)) {
+        \Log::error('Login failed for credentials:', $credentials);
+        return response()->json(['error' => 'Неверные учетные данные'], 401);
+    }
+
+    return $this->respondWithToken($token);
+}
 
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Usuario extends Authenticatable implements JWTSubject
 {
