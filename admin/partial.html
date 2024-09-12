@@ -1,30 +1,36 @@
-namespace App\Models;
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  private apiUrl = 'http://api.example.com/auth';
 
-class User extends Authenticatable implements JWTSubject
-{
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+  constructor(private http: HttpClient) {}
 
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+  login(username: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/login`, { username, password });
+  }
 
-    // Реализуем методы JWTSubject
+  logout(): void {
+    localStorage.removeItem('jwtToken');
+  }
 
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
+  setToken(token: string): void {
+    localStorage.setItem('jwtToken', token);
+  }
 
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
+  getToken(): string | null {
+    return localStorage.getItem('jwtToken');
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.getToken();
+  }
 }
+
 
 
 
