@@ -1,21 +1,13 @@
-import { Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './login/login.component';
-import { AuthGuard } from './auth/auth.guard';  // Импортируем Guard
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
+import { AppComponent } from './app/app.component';
+import { routes } from './app/app.routes';  // Импортируем маршруты
 
-export const routes: Routes = [
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [AuthGuard]  // Применяем AuthGuard для защиты маршрута
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' }
-];
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideRouter(routes)  // Передаём маршруты в провайдер
+  ]
+}).catch(err => console.error(err));
 
 
 
