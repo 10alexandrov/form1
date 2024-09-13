@@ -1,18 +1,9 @@
-isTokenExpired(): boolean {
-  const expiry = this.getTokenExpiry();
-  return expiry ? Date.now() > expiry : true;
-}
-
-// Проверка аутентификации пользователя
-isAuthenticated(): boolean {
-  const token = this.getToken();
-  return !!token && !this.isTokenExpired(); // Проверка наличия токена и его срока действия
-}
-
-// Получение токена из localStorage
-getToken(): string | null {
-  return localStorage.getItem('jwtToken');
-}
+    if (this.authService.isAuthenticated()) {
+      return true; // Доступ разрешён
+    } else {
+      this.router.navigate(['/login']); // Перенаправление на страницу логина
+      return false; // Доступ запрещён
+    }
 
 
 
