@@ -1,23 +1,12 @@
 
+    $validated = $request->validate([
+        'u_login' => 'required|unique:usuarios',
+        'u_password' => 'required|min:6',
+    ]);
 
-
-
-class Usuario extends Authenticatable implements JWTSubject
-{
-    // Определите таблицу, если её имя отличается от имени модели
-    protected $table = 'usuarios';
-
-    // Убедитесь, что в модели есть все необходимые методы для JWT
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
-}
+    $usuario = new Usuario();
+    $usuario->u_login = $validated['u_login'];
+    $usuario->u_password = Hash::make($validated['u_password']);
 
 
 
