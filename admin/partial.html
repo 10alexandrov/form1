@@ -1,25 +1,7 @@
-  // Метод для logout, отправляет запрос на сервер и удаляет токен
-  logout(): void {
-    const token = this.getToken();
-
-    if (token) {
-      this.http.post(`${this.apiUrl}/logout`, {}, {
-        headers: { Authorization: `Bearer ${token}` }
-      }).subscribe(
-        () => {
-          // Удаляем токен из localStorage и перенаправляем пользователя
-          this.removeToken();
-          this.router.navigate(['/login']);
-        },
-        (error) => {
-          console.error('Ошибка при logout:', error);
-        }
-      );
-    } else {
-      // Если токен не найден, просто перенаправляем на страницу логина
-      this.router.navigate(['/login']);
-    }
-  }
+getTokenExpiry(): number | null {
+  const expiry = localStorage.getItem('tokenExpiry');
+  return expiry ? parseInt(expiry, 10) : null;
+}
 
 
 
