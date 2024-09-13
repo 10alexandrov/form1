@@ -1,11 +1,11 @@
-checkTokenExpiration(): void {
-  const expiry = this.getTokenExpiry();
+  getCategorias (): Observable<Icategoria[]> {
 
-  // Если токен истекает через 5 минут, можно показать уведомление или обновить токен
-  if (expiry && Date.now() > (expiry - 5 * 60 * 1000)) {
-    this.refreshToken().subscribe(); // Функция для обновления токена
+    if (this.authService.checkTokenExpiration()) {
+    return this.http.get<Icategoria[]>(this.categoriaUrl).pipe(
+      map(response => response)
+    );
+    }
   }
-}
 
 
 
