@@ -1,9 +1,10 @@
-[2024-09-18 13:31:11] local.INFO: Authorization header:  
+  getData() {
+    const token = this.authService.getToken(); // Извлекаем токен из localStorage
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}` // Устанавливаем заголовок
+    });
 
-Log::info('Authorization header: ' . $request->header('Authorization'));
-
-
-return [
+return this.http.get(this.apiUrl, { headers });
 
     /*
     |--------------------------------------------------------------------------
