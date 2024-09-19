@@ -1,16 +1,5 @@
-    this.formCreateProducto = this.fb.group({
-      p_nombre: ['', Validators.required],
-      p_descripcion: [''],
-      p_ancho: ['', Validators.required],
-      p_longitud: ['', Validators.required],
-      p_altura: ['', Validators.required],
-      p_peso: ['', Validators.required],
-      p_categoria: ['', Validators.required],
-      p_foto: [''],
-      p_precio_compra: ['', Validators.required],
-      p_precio_venta: ['', Validators.required],
-      receiveInfo: [true]
-    });
+  p_nombre: ['', [Validators.required, Validators.maxLength(50)]], // Не более 50 символов
+  p_altura: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.min(1)]], 
           
 
     /*
