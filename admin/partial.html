@@ -1,16 +1,4 @@
-onFileSelected(event: any) {
-  const file: File = event.target.files[0];
-
-  if (file) {
-    const reader = new FileReader();
-
-    reader.onload = (e: any) => {
-this.newEvento.image = e.target.result;
-    };
-
-    reader.readAsDataURL(file);
-  }
-}
+Validators.pattern('^[0-9]+$')
 
     /*
     |--------------------------------------------------------------------------
