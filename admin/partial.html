@@ -1,8 +1,16 @@
-    <div class="form-group">
-      <label for="name">Image</label>
-      <input type="file" class="form-control" name="image" (change)="onFileSelected($event)">
-      <img *ngIf="newEvento.image" [src]="newEvento.image" alt="Preview" class="img-thumbnail mt-2">
-    </div>
+onFileSelected(event: any) {
+  const file: File = event.target.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+
+    reader.onload = (e: any) => {
+this.newEvento.image = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  }
+}
 
     /*
     |--------------------------------------------------------------------------
