@@ -1,13 +1,8 @@
-
-
-    'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-    ],
+    <div class="form-group">
+      <label for="name">Image</label>
+      <input type="file" class="form-control" name="image" (change)="onFileSelected($event)">
+      <img *ngIf="newEvento.image" [src]="newEvento.image" alt="Preview" class="img-thumbnail mt-2">
+    </div>
 
     /*
     |--------------------------------------------------------------------------
