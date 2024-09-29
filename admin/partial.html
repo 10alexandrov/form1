@@ -1,45 +1,6 @@
 
 
 
-
-
-
-
-        public function login(Request $request)
-        {
-            $credentials = $request->only('u_login', 'u_password');
-            $credentials['password'] = $credentials['u_password'];
-            unset($credentials['u_password']);
-
-            \Log::info('Attempting login with credentials:', $credentials);
-
-            if (!$token = JWTAuth::attempt($credentials)) {
-                \Log::error('Login failed for credentials:', $credentials);
-                return response()->json(['error' => 'Datos son incorrectos'], 401);
-            }
-
-            $usuario = auth() -> user();    // Obtener usuario autorizado
-            $role = $usuario -> role;  // Obtener role de usuario
-
-            return response () -> json (['token' => $token, 'role' => $role]);
-        }
-
-
-
-
-
-
-
-// Маршрут для логина и регистрации (не требует авторизации)
-Route::post('/login', [AuthController::class, 'login']);
-
-// Маршрут для создания нового пользователя (регистрация)
-Route::post('/usuarios', [ApiUsuarioController::class, 'store'])->middleware('cors');
-
-
-regimenMostrar:boolean = false;   // encender regimen entre lista de productos/mostrar usuarios
-regimenCrear:boolean = false;  // encender regimen crear nuevu usuario
-
 mostrarUsuario(id:number) {
   const findUsuario = this.usuarios.find(usuario => usuario.usuario_id == id);
   if (findUsuario) {
