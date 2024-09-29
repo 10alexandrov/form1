@@ -1,16 +1,5 @@
 
 
-// funccion para obtener la lista con todas usuarios
-obtenerListaUsuarios() {
-  this.usuariosService.getUsuarios().subscribe (
-    (data) => {this.usuarios = data;},
-    (error) => { console.log('Error data de producto', error)}
-  );
-
-}
-
-}
-
 
 
 Request URL: http://localhost:8080/api/usuarios
