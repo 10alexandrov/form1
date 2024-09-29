@@ -1,17 +1,5 @@
 
 
-
-mostrarUsuario(id:number) {
-  const findUsuario = this.usuarios.find(usuario => usuario.usuario_id == id);
-  if (findUsuario) {
-   this.usuarioMostrar = findUsuario;
-  } else {
-    console.log('Error: no hay usuario con este id: ', id);
-  }
-
-  this.regimenMostrar = true;   // Encender el modo de visualisar de usuario
-}
-
 crearNuevoUsuario() {
   this.regimenCrear = true;   // Encender el modo de visualisar de usuario
 }
