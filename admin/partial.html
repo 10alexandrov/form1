@@ -1,96 +1,14 @@
-import { Component, OnInit, Output, EventEmitter, Input, ElementRef, AfterViewInit, AfterViewChecked } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { IProduct } from '../../interfaces/iproduct';
-import { ProductosService } from '../../services/productos.service';
-import { Icategoria } from '../../interfaces/icategoria';
-import { CategoriasService } from '../../services/categorias.service';
-import { IMercancia } from '../../interfaces/imercancia';
-import { ProductFilterPipe } from '../../pipes/product-filter.pipe';
+export interface IMercancia {
 
-@Component({
-  selector: 'app-crear-factura',
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, ProductFilterPipe],
-  templateUrl: './crear-factura.component.html',
-  styleUrl: './crear-factura.component.scss'
-})
-export class CrearFacturaComponent implements OnInit, AfterViewChecked {
-
-  constructor(
-    private fb: FormBuilder,
-    private productosService: ProductosService,
-    private categoriasService: CategoriasService,
-    private elRef: ElementRef
-  ) {}
-
-  @Output() volverMostrar = new EventEmitter<boolean>(); // volver a mostrar lista de facturas
-
-  public formCreateProducto!: FormGroup;
-  categorias: Icategoria[] = [];  // Inicializar array categories
-  productos: IProduct[] = [];     // Inicializar array productas
-  mercancias: IMercancia[] = [];  // inicializar array mercancias de factura
-
-  @Input() regimenUpdate: boolean = false;
-
-  headers = { nombre: "Nombre", categoria: "Categoria", cantidad: "Cantidad en almacen", precio: "Precio venta" };
-
-  // filter
-  filterSearch = '';
-  categoriaSearch = 0;
-
-  private buttonsInitialized = false;  // Флаг для предотвращения повторной инициализации
-
-  // Инициализация данных при загрузке компонента
-  ngOnInit(): void {
-    this.obtenerListaProductos();
-  }
-
-  // Этот хук срабатывает каждый раз, когда происходит изменение в DOM
-  ngAfterViewChecked(): void {
-    if (!this.buttonsInitialized && this.productos.length > 0) { // Инициализация кнопок после рендеринга
-      this.initButtons();
-      this.buttonsInitialized = true; // Обновляем флаг, чтобы не повторять инициализацию
-    }
-  }
-
-  // Метод для получения данных и обновления списков продуктов и категорий
-  obtenerListaProductos() {
-    this.productosService.getProductos().subscribe(
-      (data) => { 
-        this.productos = data;
-        this.buttonsInitialized = false; // Сбрасываем флаг для повторной инициализации после загрузки данных
-      },
-      (error) => { console.log('Error data de producto', error) }
-    );
-
-    this.categoriasService.getCategorias().subscribe(
-      (data) => { this.categorias = data; },
-      (error) => { console.log('Error data de categorias', error) }
-    );
-  }
-
-  // Метод для инициализации кнопок
-  initButtons(): void {
-    const buttons = this.elRef.nativeElement.querySelectorAll('.aaa');
-
-    buttons.forEach((button: HTMLElement) => {
-      button.addEventListener('click', (event: MouseEvent) => {
-        console.log("Кнопка нажата");
-        const buttonId = (event.target as HTMLElement).id;
-        console.log(buttonId);
-      });
-    });
-  }
-
-  // Функция для возврата к списку фактур
-  volverMostrarFacturas() {
-    this.volverMostrar.emit(false);
-  }
-
-  sendDatos() {}
+  id?: number;
+  m_id_facturas: number;
+  m_id_producto: number;
+  m_nombre_producto?: string;
+  m_cantidad_pedida: number;
+  m_cantidad_recogida: number;
+  m_suma_pedida: number;
+  m_suma_recogida: number;
+  m_aceptado: boolean;
 
 }
 
