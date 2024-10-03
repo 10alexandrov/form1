@@ -1,8 +1,8 @@
-import { Component, OnInit, Output, EventEmitter, Input, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ElementRef, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormControl, FormGroup, FormBuilder, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { IProduct } from '../../interfaces/iproduct';
 import { ProductosService } from '../../services/productos.service';
 import { Icategoria } from '../../interfaces/icategoria';
@@ -13,69 +13,69 @@ import { ProductFilterPipe } from '../../pipes/product-filter.pipe';
 @Component({
   selector: 'app-crear-factura',
   standalone: true,
-  imports: [FormsModule,ReactiveFormsModule, CommonModule, ProductFilterPipe,],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, ProductFilterPipe],
   templateUrl: './crear-factura.component.html',
   styleUrl: './crear-factura.component.scss'
 })
-export class CrearFacturaComponent implements OnInit {
+export class CrearFacturaComponent implements OnInit, AfterViewChecked {
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private productosService: ProductosService,
     private categoriasService: CategoriasService,
-    private elRef: ElementRef) {}
+    private elRef: ElementRef
+  ) {}
 
-  @Output () volverMostrar = new EventEmitter <boolean> (); // volver a mostrar lista de facturas
+  @Output() volverMostrar = new EventEmitter<boolean>(); // volver a mostrar lista de facturas
 
   public formCreateProducto!: FormGroup;
-
-  categorias: Icategoria[] = []  // Inicializar array categories
-  productos: IProduct [] = [] // Inicializar array productas
-  mercancias: IMercancia[] = [] // inicializar array mercancias de factura
+  categorias: Icategoria[] = [];  // Inicializar array categories
+  productos: IProduct[] = [];     // Inicializar array productas
+  mercancias: IMercancia[] = [];  // inicializar array mercancias de factura
 
   @Input() regimenUpdate: boolean = false;
 
-  headers = {nombre: "Nombre", categoria: "Categoria", cantidad: "Cantidad en almacen", precio: "Precio venta"};
+  headers = { nombre: "Nombre", categoria: "Categoria", cantidad: "Cantidad en almacen", precio: "Precio venta" };
 
   // filter
   filterSearch = '';
   categoriaSearch = 0;
 
-  // Cargamos listas de productos
+  private buttonsInitialized = false;  // Флаг для предотвращения повторной инициализации
+
+  // Инициализация данных при загрузке компонента
   ngOnInit(): void {
     this.obtenerListaProductos();
+  }
 
-    const but = this.elRef.nativeElement.querySelector('#fff');
-    if (but) {
-      but.addEventListener('click', () => {
-        console.log('Элемент был нажат');
-      });
+  // Этот хук срабатывает каждый раз, когда происходит изменение в DOM
+  ngAfterViewChecked(): void {
+    if (!this.buttonsInitialized && this.productos.length > 0) { // Инициализация кнопок после рендеринга
+      this.initButtons();
+      this.buttonsInitialized = true; // Обновляем флаг, чтобы не повторять инициализацию
     }
   }
 
-  // Теперь этот метод срабатывает после загрузки данных
+  // Метод для получения данных и обновления списков продуктов и категорий
   obtenerListaProductos() {
     this.productosService.getProductos().subscribe(
-      (data) => {
+      (data) => { 
         this.productos = data;
-        this.initButtons(); // Инициализация кнопок после загрузки данных
+        this.buttonsInitialized = false; // Сбрасываем флаг для повторной инициализации после загрузки данных
       },
       (error) => { console.log('Error data de producto', error) }
     );
 
     this.categoriasService.getCategorias().subscribe(
-      (data) => {
-        this.categorias = data;
-      },
+      (data) => { this.categorias = data; },
       (error) => { console.log('Error data de categorias', error) }
     );
   }
 
-  // Метод для добавления обработчиков на кнопки
+  // Метод для инициализации кнопок
   initButtons(): void {
-    // Получение всех кнопок с классом 'anadir' после загрузки данных
     const buttons = this.elRef.nativeElement.querySelectorAll('.aaa');
 
-    // Добавление обработчика событий на каждую кнопку с классом 'aaa'
     buttons.forEach((button: HTMLElement) => {
       button.addEventListener('click', (event: MouseEvent) => {
         console.log("Кнопка нажата");
@@ -93,6 +93,7 @@ export class CrearFacturaComponent implements OnInit {
   sendDatos() {}
 
 }
+
 
 
 
