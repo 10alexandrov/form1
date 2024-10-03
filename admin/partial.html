@@ -1,9 +1,109 @@
 
-    if (element) {
-      element.addEventListener('click', () => {
+import { Component, OnInit, Output, EventEmitter, Input, ElementRef, AfterViewInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { IProduct } from '../../interfaces/iproduct';
+import { ProductosService } from '../../services/productos.service';
+import { Icategoria } from '../../interfaces/icategoria';
+import { CategoriasService } from '../../services/categorias.service';
+import { IMercancia } from '../../interfaces/imercancia';
+import { ProductFilterPipe } from '../../pipes/product-filter.pipe';
+
+@Component({
+  selector: 'app-crear-factura',
+  standalone: true,
+  imports: [FormsModule,ReactiveFormsModule, CommonModule, ProductFilterPipe,],
+  templateUrl: './crear-factura.component.html',
+  styleUrl: './crear-factura.component.scss'
+})
+export class CrearFacturaComponent implements OnInit, AfterViewInit {
+
+  constructor(private fb: FormBuilder,
+    private productosService: ProductosService,
+    private categoriasService: CategoriasService,
+    private elRef: ElementRef) {}
+
+@Output () volverMostrar = new EventEmitter <boolean> (); // volver a mostrar lista de facturas
+
+public formCreateProducto!: FormGroup;
+
+categorias: Icategoria[] = []  // Inicializar array categories
+productos: IProduct [] = [] // Inicializar array productas
+mercancias: IMercancia[] = [] // inicializar array mercancias de factura
+
+@Input() regimenUpdate: boolean = false;
+
+
+headers = {nombre: "Nombre", categoria: "Categoria", cantidad: "Cantidad en almacen", precio: "Precio venta"};
+
+
+// filter
+
+filterSearch = '';
+categoriaSearch = 0;
+
+
+
+   // Cargamos listas de productas
+  ngOnInit(): void {
+    this.obtenerListaProductos()
+
+    const but = this.elRef.nativeElement.querySelector('#fff');
+    if (but) {
+      but.addEventListener('click', () => {
         console.log('Элемент был нажат');
       });
     }
+  }
+
+  ngAfterViewInit(): void {
+    // Получение всех кнопок с классом 'anadir' ***
+    const buttons = this.elRef.nativeElement.querySelectorAll('.aaa');
+
+
+    // Добавление обработчика событий на каждую Anadir
+    buttons.forEach((button: HTMLElement) => {
+       button.addEventListener('click', (event: MouseEvent) => {
+         console.log("hghghg");
+         const buttonId = (event.target as HTMLElement).id;
+         console.log(buttonId);
+       });
+    });
+
+    //
+    function handleButtonClick(event:any) {
+      console.log ("hghghg");
+      const buttonId = event.target.id;
+      console.log (buttonId);
+    }
+  }
+
+   // funccion para volver con lista de facturas
+  volverMostrarFacturas () {
+    this.volverMostrar.emit (false);
+  }
+
+  sendDatos() {
+
+  }
+
+  // funccion para obtener la lista con todas productos
+obtenerListaProductos() {
+  this.productosService.getProductos().subscribe (
+    (data) => {this.productos = data;},
+    (error) => { console.log('Error data de producto', error)}
+  );
+
+  this.categoriasService.getCategorias().subscribe (
+    (data) => {this.categorias = data;},
+    (error) => { console.log('Error data de categorias', error)}
+  );   // obtener datos de BD
+}
+
+}
+
 
 
 </script>
