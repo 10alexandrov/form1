@@ -1,4 +1,3 @@
-
 import { Component, OnInit, Output, EventEmitter, Input, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, Validators } from '@angular/forms';
@@ -18,37 +17,32 @@ import { ProductFilterPipe } from '../../pipes/product-filter.pipe';
   templateUrl: './crear-factura.component.html',
   styleUrl: './crear-factura.component.scss'
 })
-export class CrearFacturaComponent implements OnInit, AfterViewInit {
+export class CrearFacturaComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private productosService: ProductosService,
     private categoriasService: CategoriasService,
     private elRef: ElementRef) {}
 
-@Output () volverMostrar = new EventEmitter <boolean> (); // volver a mostrar lista de facturas
+  @Output () volverMostrar = new EventEmitter <boolean> (); // volver a mostrar lista de facturas
 
-public formCreateProducto!: FormGroup;
+  public formCreateProducto!: FormGroup;
 
-categorias: Icategoria[] = []  // Inicializar array categories
-productos: IProduct [] = [] // Inicializar array productas
-mercancias: IMercancia[] = [] // inicializar array mercancias de factura
+  categorias: Icategoria[] = []  // Inicializar array categories
+  productos: IProduct [] = [] // Inicializar array productas
+  mercancias: IMercancia[] = [] // inicializar array mercancias de factura
 
-@Input() regimenUpdate: boolean = false;
+  @Input() regimenUpdate: boolean = false;
 
+  headers = {nombre: "Nombre", categoria: "Categoria", cantidad: "Cantidad en almacen", precio: "Precio venta"};
 
-headers = {nombre: "Nombre", categoria: "Categoria", cantidad: "Cantidad en almacen", precio: "Precio venta"};
+  // filter
+  filterSearch = '';
+  categoriaSearch = 0;
 
-
-// filter
-
-filterSearch = '';
-categoriaSearch = 0;
-
-
-
-   // Cargamos listas de productas
+  // Cargamos listas de productos
   ngOnInit(): void {
-    this.obtenerListaProductos()
+    this.obtenerListaProductos();
 
     const but = this.elRef.nativeElement.querySelector('#fff');
     if (but) {
@@ -58,51 +52,48 @@ categoriaSearch = 0;
     }
   }
 
-  ngAfterViewInit(): void {
-    // Получение всех кнопок с классом 'anadir' ***
+  // Теперь этот метод срабатывает после загрузки данных
+  obtenerListaProductos() {
+    this.productosService.getProductos().subscribe(
+      (data) => {
+        this.productos = data;
+        this.initButtons(); // Инициализация кнопок после загрузки данных
+      },
+      (error) => { console.log('Error data de producto', error) }
+    );
+
+    this.categoriasService.getCategorias().subscribe(
+      (data) => {
+        this.categorias = data;
+      },
+      (error) => { console.log('Error data de categorias', error) }
+    );
+  }
+
+  // Метод для добавления обработчиков на кнопки
+  initButtons(): void {
+    // Получение всех кнопок с классом 'anadir' после загрузки данных
     const buttons = this.elRef.nativeElement.querySelectorAll('.aaa');
 
-
-    // Добавление обработчика событий на каждую Anadir
+    // Добавление обработчика событий на каждую кнопку с классом 'aaa'
     buttons.forEach((button: HTMLElement) => {
-       button.addEventListener('click', (event: MouseEvent) => {
-         console.log("hghghg");
-         const buttonId = (event.target as HTMLElement).id;
-         console.log(buttonId);
-       });
+      button.addEventListener('click', (event: MouseEvent) => {
+        console.log("Кнопка нажата");
+        const buttonId = (event.target as HTMLElement).id;
+        console.log(buttonId);
+      });
     });
-
-    //
-    function handleButtonClick(event:any) {
-      console.log ("hghghg");
-      const buttonId = event.target.id;
-      console.log (buttonId);
-    }
   }
 
-   // funccion para volver con lista de facturas
-  volverMostrarFacturas () {
-    this.volverMostrar.emit (false);
+  // Функция для возврата к списку фактур
+  volverMostrarFacturas() {
+    this.volverMostrar.emit(false);
   }
 
-  sendDatos() {
+  sendDatos() {}
 
-  }
-
-  // funccion para obtener la lista con todas productos
-obtenerListaProductos() {
-  this.productosService.getProductos().subscribe (
-    (data) => {this.productos = data;},
-    (error) => { console.log('Error data de producto', error)}
-  );
-
-  this.categoriasService.getCategorias().subscribe (
-    (data) => {this.categorias = data;},
-    (error) => { console.log('Error data de categorias', error)}
-  );   // obtener datos de BD
 }
 
-}
 
 
 
