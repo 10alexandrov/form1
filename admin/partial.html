@@ -1,3 +1,12 @@
+<div *ngFor="let mercancia of mercancias; let i = index">
+  <label>Количество для {{ mercancia.m_nombre }}:</label>
+  <input
+    type="number"
+    [(ngModel)]="mercancia.quantity"
+    (blur)="updateQuantity(i, mercancia.quantity)"  <!-- При потере фокуса вызываем функцию -->
+    placeholder="Введите количество"
+  />
+</div>
 
 
 
