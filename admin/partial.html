@@ -1,3 +1,9 @@
+        <app-crear-factura (volverMostrar) = "volverListaFacturas ($event)"
+                          [regimenUpdate]="regimenUpdate"
+                          [updateFacturaId] = "mostrarFacturaId">
+
+        </app-crear-factura>
+
 NG8002: Can't bind to 'updateFacturaId' since it isn't a known property of 'app-crear-factura'
 
 import { Component, OnInit, Output, EventEmitter, Input, ElementRef, AfterViewChecked } from '@angular/core';
