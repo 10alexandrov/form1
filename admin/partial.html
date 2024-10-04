@@ -1,14 +1,7 @@
-  transform(value: string | number): string {
-    // Преобразуем значение в строку, если это число
-    let numStr = value.toString();
-
-    // Удаляем ведущие нули
-    numStr = numStr.replace(/^0+/, '');
-
-    // Преобразуем обратно в число, чтобы округлить до двух знаков после запятой
-    const formattedNumber = parseFloat(numStr).toFixed(2);
-
-    return formattedNumber;
+@NgModule({
+  declarations: [RemoveLeadingZeroAndFormatPipe],
+  exports: [RemoveLeadingZeroAndFormatPipe]
+})
 
 
 
