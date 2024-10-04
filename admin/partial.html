@@ -1,19 +1,26 @@
-            $data = $request->json()->all();
-            $sumaFactura = $data['f_suma'];
+            if (isset($data['mercancias']) && is_array($data['mercancias'])) {
+                $mercancias = $data['mercancias'];
 
-  createMercancia (mercancia: IMercancia [], f_suma: number): Observable<IMercancia[]> {
+                foreach ($mercancias as $mercancia) {
+                    // Проверить, что все необходимые поля присутствуют
+                    if (isset($mercancia['m_id_productos']) && isset($mercancia['m_cantidad_pedida'])) {
+                        Mercancia::create([
+                            'm_id_facturas' => $facturaId, // Убедитесь, что $facturaId определен
+                            'm_id_productos' => $mercancia['m_id_productos'],
+                            'm_cantidad_pedida' => $mercancia['m_cantidad_pedida'],
+                            'm_suma_pedida' => $mercancia['m_suma_pedida'],
+                        ]);
+                    } else {
+                        // Обработка ошибки, если данные продукта неполные
+                        return response()->json(['error' => 'Данные продукта неполные'], 400);
+                    }
+                }
 
-    const headers = this.getHeaderAuth ();
-
-    if (this.authService.checkTokenExpiration()) {
-      const getURL = `http://localhost:8080/api/mercancias`;
-      return this.http.post<IMercancia[]>(getURL, [mercancia, f_suma], {headers}).pipe(
-        map(response => response)
-      );
-    } else {
-      return EMPTY;
-    }
-  }
+                    return response()->json(['message' => 'Продукты успешно сохранены'], 200);
+            } else {
+                // Обработка ошибки, если продукты не найдены
+                    return response()->json(['error' => 'Продукты не найдены'], 400);
+            }
 
 
 ngOnChanges (changes: SimpleChanges): void {
