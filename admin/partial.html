@@ -1,12 +1,10 @@
-<div *ngFor="let mercancia of mercancias; let i = index">
-  <label>Количество для {{ mercancia.m_nombre }}:</label>
-  <input
-    type="number"
-    [(ngModel)]="mercancia.quantity"
-    (blur)="updateQuantity(i, mercancia.quantity)"  <!-- При потере фокуса вызываем функцию -->
-    placeholder="Введите количество"
-  />
-</div>
+  // Функция для обновления количества
+  updateQuantity(index: number, value: number): void {
+    if (value >= 0) {  // Можно добавить проверку на корректность введенного значения
+      this.mercancias[index].quantity = value;
+      console.log(`Количество для ${this.mercancias[index].m_nombre}: ${value}`);
+    }
+  }
 
 
 
