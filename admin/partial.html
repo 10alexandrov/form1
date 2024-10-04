@@ -1,10 +1,18 @@
-Argument of type 'number' is not assignable to parameter of type 'string'.ts(2345)
+            $data = $request->json()->all();
+            $sumaFactura = $data['f_suma'];
 
-sumarFactura (): void {
-    this.sumaFactura = this.mercancias.reduce((total, mercancia) => {
-      return total + mercancia.m_suma_pedida;
-    }, 0);
-    console.log ('sumar', this.sumaFactura);
+  createMercancia (mercancia: IMercancia [], f_suma: number): Observable<IMercancia[]> {
+
+    const headers = this.getHeaderAuth ();
+
+    if (this.authService.checkTokenExpiration()) {
+      const getURL = `http://localhost:8080/api/mercancias`;
+      return this.http.post<IMercancia[]>(getURL, [mercancia, f_suma], {headers}).pipe(
+        map(response => response)
+      );
+    } else {
+      return EMPTY;
+    }
   }
 
 
