@@ -1,7 +1,11 @@
-@NgModule({
-  declarations: [RemoveLeadingZeroAndFormatPipe],
-  exports: [RemoveLeadingZeroAndFormatPipe]
-})
+  ngOnChanges (changes: SimpleChanges): void {
+    if (changes['mercancias']) {
+       this.mercanciasEnPedido = [...this.mercancias]; // Копируем новые данные
+       this.buttonsInitialized = false; // Сбрасываем флаг, чтобы кнопки инициализировались заново
+       this.sumarFactura ();
+
+      }
+  }
 
 
 
