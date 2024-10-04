@@ -1,4 +1,12 @@
-  ngOnChanges (changes: SimpleChanges): void {
+ sumarFactura (): void {
+    this.sumaFactura = this.mercancias.reduce((total, mercancia) => {
+      return total + mercancia.m_suma_pedida;
+    }, 0);
+    console.log ('sumar', this.sumaFactura);
+  }
+
+
+ngOnChanges (changes: SimpleChanges): void {
     if (changes['mercancias']) {
        this.mercanciasEnPedido = [...this.mercancias]; // Копируем новые данные
        this.buttonsInitialized = false; // Сбрасываем флаг, чтобы кнопки инициализировались заново
