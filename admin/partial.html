@@ -7,6 +7,12 @@
       }
   }
 
+  sumarFactura (): void {
+    this.sumaFactura = this.mercancias.reduce((total, mercancia) => {
+      return total + mercancia.m_suma_pedida;
+    }, 0);
+  }
+
 
 
 
