@@ -1,9 +1,8 @@
-  // Функция для обновления количества
-  updateQuantity(index: number, value: number): void {
-    if (value >= 0) {  // Можно добавить проверку на корректность введенного значения
-      this.mercancias[index].quantity = value;
-      console.log(`Количество для ${this.mercancias[index].m_nombre}: ${value}`);
-    }
+  // Метод для подсчета суммы
+  getTotalSumaPedido(): number {
+    return this.mercancias.reduce((total, mercancia) => {
+      return total + mercancia.m_suma_pedido;
+    }, 0);  // Начальное значение total = 0
   }
 
 
