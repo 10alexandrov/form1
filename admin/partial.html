@@ -1,11 +1,11 @@
-    public function index()
-    {
-        $estadistica = Estadistica::latest()->first();
-        // Log::info('Authorization header: ' . $request->header('Authorization'));
+  // funccion para obtener la lista con todas usuarios
+obtenerEstadistica() {
+  this.estadisticaService.getEstadistica().subscribe (
+    (data) => {this.estadistica = data; console.log(this.estadistica);},
+    (error) => { console.log('Error data de producto', error)}
+  );
 
-        return $estadistica;
-    }
-
+}
 
 getEstadistica (): Observable<Iestadistica> {
 
