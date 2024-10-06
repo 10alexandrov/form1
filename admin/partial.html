@@ -1,14 +1,15 @@
-<?php
+  getEstadistica (): Observable<Iestadistica> {
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\ApiProductoController;
-use App\Http\Controllers\Api\ApiUsuarioController;
-use App\Http\Controllers\Api\ApiFacturaController;
-use App\Http\Controllers\Api\ApiCategoriaController;
-use App\Http\Controllers\Api\ApiMercanciaController;
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\ApiEstadisticaController;
+    const headers = this.getHeaderAuth ();
+
+    if (this.authService.checkTokenExpiration()) {
+      return this.http.get<Iestadistica>(this.facturaUrl, {headers}).pipe(
+        map(response => response)
+      );
+    } else {
+      return EMPTY;
+    }
+  }
 
 /*
 |--------------------------------------------------------------------------
