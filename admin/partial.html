@@ -1,11 +1,9 @@
-  // funccion para obtener la lista con todas usuarios
-obtenerEstadistica() {
-  this.estadisticaService.getEstadistica().subscribe (
-    (data) => {this.estadistica = data; console.log(this.estadistica);},
-    (error) => { console.log('Error data de producto', error)}
-  );
-
-}
+      map(response => {
+        if (Array.isArray(response)) {
+          return response[0];  // Возвращаем первый элемент массива, если это массив
+        }
+        return response;  // Если это объект, возвращаем объект
+      })
 
 getEstadistica (): Observable<Iestadistica> {
 
