@@ -1,6 +1,7 @@
 $faltaMercancia = DB::table('productos')
-            ->where('productos.p_cantidad_almacen','<', 1);
-
+    ->select('p_nombre', 'id_product') // Выбираем только столбцы p_nombre и id_product
+    ->where('p_cantidad_almacen', '<', 1) // Условие на количество
+    ->get(); // Получаем результат
 
 
 
