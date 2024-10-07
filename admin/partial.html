@@ -1,9 +1,8 @@
-       $sumaComprasHoy = DB::table('mercancias')
-            ->join('facturas', 'mercancias.m_id_facturas', '=', 'facturas.factura_id') // Соединение таблиц
-            ->whereDate('mercancias.created_at', $date->toDateString()) // Проверяем сегодняшнюю дату
-            ->where('mercancias.m_aceptado', 1) // Только принятые записи
+            $sumaComprasHoy = DB::table('facturas')
+            ->whereDate('facturas.created_at', $date->toDateString()) // Проверяем сегодняшнюю дату
+            ->where('facturas.f_aceptado', 1) // Только принятые записи
             ->where('facturas.f_tipo', 0) // Условие на поле f_tipo
-            ->sum(DB::raw('mercancias.m_cantidad_pedida * mercancias.m_precio_pedida')); // Суммируем произведения
+            ->sum(DB::raw('facturas.f_suma'));
 
 
 
