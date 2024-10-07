@@ -1,13 +1,4 @@
-        try {
-            $estadisticaNew->save();
-            return response()->json($estadisticaNew); // Возвращаем созданную запись
-        } catch (\Exception $e) {
-            return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
-        }
-    }
-
-    // Возвращаем найденную запись
-    return response()->json($estadistica);
+$sumaRestos = Producto::sum(DB::raw('p_precio_compra * p_cantidad_almacen'));
 
 
 
