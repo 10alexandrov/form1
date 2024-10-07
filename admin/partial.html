@@ -1,8 +1,5 @@
-            $sumaComprasHoy = DB::table('facturas')
-            ->whereDate('facturas.created_at', $date->toDateString()) // Проверяем сегодняшнюю дату
-            ->where('facturas.f_aceptado', 1) // Только принятые записи
-            ->where('facturas.f_tipo', 0) // Условие на поле f_tipo
-            ->sum(DB::raw('facturas.f_suma'));
+$faltaMercancia = DB::table('productos')
+            ->where('productos.p_cantidad_almacen','<', 1);
 
 
 
