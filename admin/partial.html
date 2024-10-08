@@ -1,25 +1,5 @@
-// Возвращаем данные для текущей страницы
-  getPaginatedData() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.allData.slice(startIndex, endIndex);
-  }
-
-  // Переход на предыдущую страницу
-  prevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.paginatedData = this.getPaginatedData();
-    }
-  }
-
-  // Переход на следующую страницу
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.paginatedData = this.getPaginatedData();
-    }
-  }
+    this.totalPages = Math.ceil(this.allData.length / this.itemsPerPage);
+    this.paginatedData = this.getPaginatedData();
 
 
 <?php
