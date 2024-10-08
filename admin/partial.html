@@ -1,4 +1,19 @@
-NG5: Argument of type 'string' is not assignable to parameter of type 'Date'.
+        <form class="form ps-3" (ngSubmit) = "obtenerEstadisticaPorFecha (date.value)" >
+          <h5 class="pt-1">Seleccionar estadísticas por fecha</h5>
+          <input type="date" name="date" #date required>
+          <div>
+            <button class="btn btn-info" type="submit">Obtener</button>
+          </div>
+        </form>
+
+obtenerEstadisticaPorFecha (fecha: string) {
+  console.log (fecha); /*
+  this.estadisticaService.getEstadisticaPorFecha(fecha).subscribe (
+    (data) => {this.estadistica = data; console.log(this.estadistica);},
+    (error) => { console.log('Error data de producto', error)}
+  ); */
+
+}
 
 
 
