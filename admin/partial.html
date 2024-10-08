@@ -1,20 +1,13 @@
- getEstadistica (): Observable<Iestadistica> {
+function formatDateToDDMMYYYY(date: Date): string {
+  const day = ('0' + date.getDate()).slice(-2);        // Добавляем ведущий ноль, если день меньше 10
+  const month = ('0' + (date.getMonth() + 1)).slice(-2); // Месяц в JavaScript от 0 до 11, добавляем 1 и ведущий ноль
+  const year = date.getFullYear();
 
-    const headers = this.getHeaderAuth ();
+  return `${day}${month}${year}`;
+}
 
-    if (this.authService.checkTokenExpiration()) {
-      return this.http.get<Iestadistica>(this.facturaUrl, {headers}).pipe (
-        map(response => {
-          if (Array.isArray(response)) {
-            return response[0];  // Возвращаем первый элемент массива, если это массив
-          }
-          return response;  // Если это объект, возвращаем объект
-        })
-      );
-    } else {
-      return EMPTY;
-    }
-  }
+// Пример использования
+const formattedDate = formatDateToDDMMYYYY(date);
 
 
 
