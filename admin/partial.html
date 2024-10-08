@@ -1,22 +1,20 @@
-  getEstadistica (): Observable<Iestadistica> {
+getEstadistica (): Observable<IEstadisticaResponse> {
 
-    const headers = this.getHeaderAuth ();
+  const headers = this.getHeaderAuth();
 
-    if (this.authService.checkTokenExpiration()) {
-      return this.http.get<Iestadistica>(this.facturaUrl, {headers}).pipe (
-        map(response => {
-          if (Array.isArray(response)) {
-            return response[0];  // Возвращаем первый элемент массива, если это массив
-          }
-          return response;  // Если это объект, возвращаем объект
-        })
-      );
-    } else {
-      return EMPTY;
-    }
+  if (this.authService.checkTokenExpiration()) {
+    return this.http.get<IEstadisticaResponse>(this.facturaUrl, {headers}).pipe(
+      map(response => {
+        return {
+          estadistica: response[0],  // Первый элемент массива — это объект Iestadistica
+          faltaMercancia: response[1]  // Второй элемент массива — это массив faltaMercancia
+        };
+      })
+    );
+  } else {
+    return EMPTY;
   }
-
-          return response()->json([$estadistica, $faltaMercancia]);
+}
 
 
 
