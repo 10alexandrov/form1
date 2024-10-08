@@ -1,14 +1,14 @@
-function formatDateToDDMMYYYY(date: Date): string {
-  const day = ('0' + date.getDate()).slice(-2);        // Добавляем ведущий ноль, если день меньше 10
-  const month = ('0' + (date.getMonth() + 1)).slice(-2); // Месяц в JavaScript от 0 до 11, добавляем 1 и ведущий ноль
-  const year = date.getFullYear();
+    $dateString = str_pad($number, 8, '0', STR_PAD_LEFT); // На случай, если число не содержит ведущих нулей
 
-  return `${day}${month}${year}`;
-}
+    // Извлекаем день, месяц и год
+    $day = substr($dateString, 0, 2);   // Первые два символа — это день
+    $month = substr($dateString, 2, 2); // Следующие два символа — это месяц
+    $year = substr($dateString, 4, 4);  // Остальные четыре символа — это год
 
-// Пример использования
-const formattedDate = formatDateToDDMMYYYY(date);
+    // Создаем дату с помощью Carbon
+    $date = Carbon::createFromDate($year, $month, $day);
 
+    return $date; // Вернет объект даты Carbon
 
 
 
