@@ -1,7 +1,22 @@
-$faltaMercancia = DB::table('productos')
-    ->select('p_nombre', 'id_product') // Выбираем только столбцы p_nombre и id_product
-    ->where('p_cantidad_almacen', '<', 1) // Условие на количество
-    ->get(); // Получаем результат
+  getEstadistica (): Observable<Iestadistica> {
+
+    const headers = this.getHeaderAuth ();
+
+    if (this.authService.checkTokenExpiration()) {
+      return this.http.get<Iestadistica>(this.facturaUrl, {headers}).pipe (
+        map(response => {
+          if (Array.isArray(response)) {
+            return response[0];  // Возвращаем первый элемент массива, если это массив
+          }
+          return response;  // Если это объект, возвращаем объект
+        })
+      );
+    } else {
+      return EMPTY;
+    }
+  }
+
+          return response()->json([$estadistica, $faltaMercancia]);
 
 
 
