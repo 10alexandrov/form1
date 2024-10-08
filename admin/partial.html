@@ -1,29 +1,8 @@
-    public function show($id)
-    {
-        $estadistica = Estadistica::where('id', $id) -> first();
-
-        if (!$estadistica) {
-
-            $dateString = str_pad($id, 8, '0', STR_PAD_LEFT); // Comprobar hay 0 en primer
-
-            $day = substr($dateString, 0, 2);
-            $month = substr($dateString, 2, 2);
-            $year = substr($dateString, 4, 4);
-            $date = Carbon::createFromDate($year, $month, $day);
-
-            $estadisticaNew = obtenerEstadistica ($id, $date);
-
-            try {
-                $estadisticaNew->save();
-
-                return response()->json($estadisticaNew); // Возвращаем созданную запись
-            } catch (\Exception $e) {
-                return response()->json(['error' => true, 'message' => $e->getMessage()], 500);
-            }
-        }
-
-        return response()->json($estadistica);
-    }
+  <div class="pagination-controls">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
 
 
 
