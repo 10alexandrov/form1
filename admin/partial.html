@@ -1,14 +1,5 @@
-    $dateString = str_pad($number, 8, '0', STR_PAD_LEFT); // На случай, если число не содержит ведущих нулей
-
-    // Извлекаем день, месяц и год
-    $day = substr($dateString, 0, 2);   // Первые два символа — это день
-    $month = substr($dateString, 2, 2); // Следующие два символа — это месяц
-    $year = substr($dateString, 4, 4);  // Остальные четыре символа — это год
-
-    // Создаем дату с помощью Carbon
-    $date = Carbon::createFromDate($year, $month, $day);
-
-    return $date; // Вернет объект даты Carbon
+core.mjs:7185 ERROR TypeError: Cannot read property 'faltaMercancias' of undefined
+    at EstadisticaComponent_Template
 
 
 
