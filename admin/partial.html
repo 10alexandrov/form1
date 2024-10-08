@@ -1,9 +1,6 @@
-  <div class="pagination-controls">
-    <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
-    <span>Page {{ currentPage }} of {{ totalPages }}</span>
-    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
-  </div>
-
+  itemsPerPage = 10;           // Количество элементов на странице
+  currentPage = 1;             // Текущая страница
+  totalPages = 1;              // Общее количество страниц
 
 
 
