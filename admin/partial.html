@@ -1,19 +1,16 @@
-        <form class="form ps-3" (ngSubmit) = "obtenerEstadisticaPorFecha (date.value)" >
-          <h5 class="pt-1">Seleccionar estadísticas por fecha</h5>
-          <input type="date" name="date" #date required>
-          <div>
-            <button class="btn btn-info" type="submit">Obtener</button>
-          </div>
-        </form>
-
-obtenerEstadisticaPorFecha (fecha: string) {
-  console.log (fecha); /*
-  this.estadisticaService.getEstadisticaPorFecha(fecha).subscribe (
-    (data) => {this.estadistica = data; console.log(this.estadistica);},
-    (error) => { console.log('Error data de producto', error)}
-  ); */
-
+function convertDateStringToNumber(dateString: string): number {
+  const dateParts = dateString.split('-'); // Разделяем строку по '-'
+  
+  const year = dateParts[0];   // Получаем год (YYYY)
+  const month = dateParts[1];  // Получаем месяц (MM)
+  const day = dateParts[2];    // Получаем день (DD)
+  
+  // Формируем число в формате DDMMYYYY
+  const formattedNumber = parseInt(`${day}${month}${year}`, 10);
+  
+  return formattedNumber;
 }
+
 
 
 
