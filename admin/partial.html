@@ -1,20 +1,5 @@
-getEstadistica (): Observable<IEstadisticaResponse> {
-
-  const headers = this.getHeaderAuth();
-
-  if (this.authService.checkTokenExpiration()) {
-    return this.http.get<IEstadisticaResponse>(this.facturaUrl, {headers}).pipe(
-      map(response => {
-        return {
-          estadistica: response[0],  // Первый элемент массива — это объект Iestadistica
-          faltaMercancia: response[1]  // Второй элемент массива — это массив faltaMercancia
-        };
-      })
-    );
-  } else {
-    return EMPTY;
-  }
-}
+Element implicitly has an 'any' type because expression of type '0' can't be used to index type 'IEstadisticaResponse'.
+  Property '0' does not exist on type 'IEstadisticaResponse'.
 
 
 
