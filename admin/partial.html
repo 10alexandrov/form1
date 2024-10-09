@@ -1,4 +1,5 @@
-<input type="text" [(ngModel)]="filterText" (input)="applyFilter()" placeholder="Фильтр" />
+          let facturasParaFilterar = this.facturas.filter(factura.usuario_cliente.u_nombre.toLocaleLowerCase().includes(this.clientSearch));
+
 
 
 
