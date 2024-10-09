@@ -2,6 +2,8 @@ let facturasParaFilterar = this.facturas.filter(factura =>
   factura.usuario_cliente.u_nombre.toLocaleLowerCase().includes(this.clientSearch.toLocaleLowerCase())
 );
 
+'factura.usuario_cliente' is possibly 'undefined'
+
 
 
 import { Component, OnInit, Output, EventEmitter, Input, ElementRef, AfterViewChecked } from '@angular/core';
