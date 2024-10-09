@@ -1,17 +1,5 @@
-  // Фильтрация данных
-  applyFilter() {
-    if (this.filterText) {
-      this.filteredData = this.allData.filter(item => 
-        item.name.toLowerCase().includes(this.filterText.toLowerCase())
-      );
-    } else {
-      this.filteredData = [...this.allData]; // Если фильтра нет, показываем все данные
-    }
+<input type="text" [(ngModel)]="filterText" (input)="applyFilter()" placeholder="Фильтр" />
 
-    this.totalPages = Math.ceil(this.filteredData.length / this.itemsPerPage);
-    this.currentPage = 1; // Сбрасываем на первую страницу
-    this.paginateData();  // Обновляем данные для текущей страницы
-  }
 
 
 
