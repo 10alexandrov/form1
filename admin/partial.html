@@ -1,10 +1,6 @@
-              <div class="col-sm-3 mt-2">
-                <select name="direccionSearch" id="direccionSearch" [(ngModel)]="direccionSearch" (input)="applyFilter()">
-                    <option [value]=-1>Seleccione direccion</option>
-                    <option [value]=0>Entante</option>
-                    <option [value]=1>Saliente</option>
-                </select>
-              </div>
+
+[previous exception] [object] (PDOException(code: 23000): SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`almacen`.`productos`, CONSTRAINT `productos_p_categoria_foreign` FOREIGN KEY (`p_categoria`) REFERENCES `categorias` (`id_categoria`) ON DELETE CASCADE) at /home/alumno/Desktop/Almacen/almacen/vendor/laravel/framework/src/Illuminate/Database/Connection.php:501)
+[stacktrace]
 
 
 
