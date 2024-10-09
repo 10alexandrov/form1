@@ -1,6 +1,6 @@
-          let facturasParaFilterar = this.facturas.filter(factura.usuario_cliente.u_nombre.toLocaleLowerCase().includes(this.clientSearch));
-
-
+let facturasParaFilterar = this.facturas.filter(factura => 
+  factura.usuario_cliente.u_nombre.toLocaleLowerCase().includes(this.clientSearch.toLocaleLowerCase())
+);
 
 
 
