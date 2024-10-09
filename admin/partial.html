@@ -1,8 +1,10 @@
-let facturasParaFilterar = this.facturas.filter(factura => 
-  factura.usuario_cliente.u_nombre.toLocaleLowerCase().includes(this.clientSearch.toLocaleLowerCase())
-);
-
-'factura.usuario_cliente' is possibly 'undefined'
+              <div class="col-sm-3 mt-2">
+                <select name="direccionSearch" id="direccionSearch" [(ngModel)]="direccionSearch" (input)="applyFilter()">
+                    <option [value]=-1>Seleccione direccion</option>
+                    <option [value]=0>Entante</option>
+                    <option [value]=1>Saliente</option>
+                </select>
+              </div>
 
 
 
