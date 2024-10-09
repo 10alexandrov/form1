@@ -1,6 +1,8 @@
-
-[previous exception] [object] (PDOException(code: 23000): SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`almacen`.`productos`, CONSTRAINT `productos_p_categoria_foreign` FOREIGN KEY (`p_categoria`) REFERENCES `categorias` (`id_categoria`) ON DELETE CASCADE) at /home/alumno/Desktop/Almacen/almacen/vendor/laravel/framework/src/Illuminate/Database/Connection.php:501)
-[stacktrace]
+          if (+this.categoriaSearch >-1) {    // filtrar por categoria
+            console.log ("rrr");
+            productosParaFilterar.filter(producto =>
+              producto.p_categoria == this.categoriaSearch)
+           }
 
 
 
