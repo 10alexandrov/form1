@@ -1,17 +1,28 @@
-Type 'string' is not assignable to type 'ArrayBuffer'.
+        // Получаем Base64 строку
+        $base64Image = $request->input('image');
 
- p_foto : ArrayBuffer | undefined = undefined;
-      onFileSelected(event: any): void {
-        const file = event.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onload = () => {
-            const base64String = reader.result as string;
-            this.p_foto(base64String);  // Отправляем изображение на бэкенд
-          };
+        // Проверяем формат Base64 строки (можно дополнительно проверять тип MIME)
+        if (preg_match('/^data:image\/(\w+);base64,/', $base64Image, $type)) {
+            $base64Image = substr($base64Image, strpos($base64Image, ',') + 1);
+            $type = strtolower($type[1]); // jpg, png, gif, и т.д.
+
+            // Декодируем Base64 строку в бинарный формат
+            $imageData = base64_decode($base64Image);
+
+            // Генерируем уникальное имя файла
+            $fileName = uniqid() . '.' . $type;
+
+            // Сохраняем изображение в файловую систему (например, в папку storage/app/public)
+            Storage::disk('public')->put($fileName, $imageData);
+
+            // Возвращаем успешный ответ с ссылкой на сохраненное изображение
+            return response()->json(['message' => 'Image uploaded successfully', 'file_name' => $fileName], 200);
+        } else {
+            return response()->json(['error' => 'Invalid image format'], 400);
         }
-      }
+    }
+
+
 
 
 
