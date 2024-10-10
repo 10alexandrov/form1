@@ -1,4 +1,14 @@
-sudo chmod -R 755 /path-to-your-project/public/images
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const base64String = reader.result as string;
+        this.uploadImage(base64String);  // Отправляем изображение на бэкенд
+      };
+    }
+
 
 
 
