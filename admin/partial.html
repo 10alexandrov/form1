@@ -1,14 +1,16 @@
-import { IUsuarios } from "./iusuarios";
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" formControlName="p_activo" [value]="true" id="activeTrue">
+      <label class="form-check-label form-label-AW" for="activeTrue">
+         Producto activo
+       </label>
+   </div>
 
-export interface IFactura {
-
-  factura_id: number;
-  f_id_cliente: number;
-  f_tipo: boolean;
-  f_suma: number;
-  f_id_responsable: number;
-  f_fecha_tramitacion: Date;
-  f_suma_tramitacion:number;
+   <div class="form-check form-check-inline">
+       <input class="form-check-input" type="radio" formControlName="p_activo" [value]="false" id="activeFalse">
+       <label class="form-check-label form-label-AW" for="activeFalse">
+          Producto inactivo
+        </label>
+   </div>
   f_aceptado: boolean;
   created_at: Date;
   usuario_cliente: IUsuarios;
