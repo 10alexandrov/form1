@@ -1,4 +1,5 @@
-     Route::resource('/productos', ApiProductoController::class)-> names("productos");
+Route::get('/productos/activo', [ApiProductoController::class, 'activo'])->name('productos.activo');
+
 
 
 
