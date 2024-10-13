@@ -1,20 +1,12 @@
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" formControlName="p_activo" [value]="true" id="activeTrue">
-      <label class="form-check-label form-label-AW" for="activeTrue">
-         Producto activo
-       </label>
-   </div>
-
-   <div class="form-check form-check-inline">
-       <input class="form-check-input" type="radio" formControlName="p_activo" [value]="false" id="activeFalse">
-       <label class="form-check-label form-label-AW" for="activeFalse">
-          Producto inactivo
-        </label>
-   </div>
-  f_aceptado: boolean;
-  created_at: Date;
-  usuario_cliente: IUsuarios;
-}
+          <tr *ngFor = "let producto of productosPaginated" *ngIf = "producto.p_activo">
+            <td>{{producto.p_nombre}}</td>
+            <td>{{producto.p_nombre_categoria}}</td>
+            <td>{{producto.p_cantidad_almacen}}</td>
+            <td>{{producto.p_precio_venta}}</td>
+            <td id="AW-td">
+              <button id="{{producto.product_id}}" class="btn btn-primary btn-AW anadir">+</button>
+            </td>
+          </tr>
 
 
 
