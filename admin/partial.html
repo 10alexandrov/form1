@@ -1,20 +1,12 @@
-// Загружаем модель продукта один раз
-$producto = Producto::findOrFail($mercancia['m_id_productos']);
+NG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'.
 
-// Вычисляем новое значение количества на складе
-$cantidadEnAlmacen = $producto->p_cantidad_almacen - $mercancia['m_cantidad_pedida']; // Уменьшаем количество на складе
+        <div class="d-flex">
+          <input style="width:70px;"
+          type="number"
+          [(ngModel)]="mercancia.m_cantidad_recogida"
+          (blur)="updateQuantity(mercancia.m_id_productos, mercancia.m_cantidad_pedida)"/>
+        </div>
 
-// Обновляем необходимые поля
-$producto->update([
-    'p_cantidad_reservado' => $mercancia['m_cantidad_pedida'],
-    'p_cantidad_almacen' => $cantidadEnAlmacen
-]);
-
-
-$producto->decrement('p_cantidad_almacen', $mercancia['m_cantidad_pedida']);
-$producto->update([
-    'p_cantidad_reservado' => $mercancia['m_cantidad_pedida']
-]);
 
 
     deleteProducto (id: number): Observable<void> {
