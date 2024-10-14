@@ -1,9 +1,4 @@
-                            $cantidadEnAlmacen = Producto::findOrFail($mercancia['m_id_productos'])->p_cantidad_almacen;
-                            $cantidadEnAlmacen = $cantidadEnAlmacen - $mercancia['m_id_productos'];   // Disminuir cantidad en almacen
-                            Producto::findOrFail($mercancia['m_id_productos'])->update(['p_cantidad_reservado' => $mercancia['m_cantidad_pedida']]);
-                            Producto::findOrFail($mercancia['m_id_productos'])->update(['p_cantidad_entrega' => $cantidadEnAlmacen]);
-
-    getProductosActivos() : Observable<IProduct[]> {    // Para obtener array con productos activos
+<button *ngIf ="producto.p_cantidad_almacen > 0 && role !=='cliente'"
 
       const headers = this.getHeaderAuth ();
       const productUrlActivos = 'http://localhost:8080/api/productos/activos'
