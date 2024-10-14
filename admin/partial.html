@@ -1,23 +1,7 @@
-$cantidadEnAlmacen = Producto::findOrFail($mercancia['m_id_productos'])->get('p_cantidad_almacen');
-
-export class ProductosService {
-
-  private productUrl = 'http://localhost:8080/api/productos'
-
-  constructor(private http: HttpClient, private authService: AuthService) {}
-
-    getProductos (): Observable<IProduct[]> {
-
-      const headers = this.getHeaderAuth ();
-
-      if (this.authService.checkTokenExpiration()) {
-        return this.http.get<IProduct[]>(this.productUrl, { headers }).pipe(
-          map(response => response)
-        );
-      } else {
-        return EMPTY;
-      }
-    }
+                            $cantidadEnAlmacen = Producto::findOrFail($mercancia['m_id_productos'])->p_cantidad_almacen;
+                            $cantidadEnAlmacen = $cantidadEnAlmacen - $mercancia['m_id_productos'];   // Disminuir cantidad en almacen
+                            Producto::findOrFail($mercancia['m_id_productos'])->update(['p_cantidad_reservado' => $mercancia['m_cantidad_pedida']]);
+                            Producto::findOrFail($mercancia['m_id_productos'])->update(['p_cantidad_entrega' => $cantidadEnAlmacen]);
 
     getProductosActivos() : Observable<IProduct[]> {    // Para obtener array con productos activos
 
