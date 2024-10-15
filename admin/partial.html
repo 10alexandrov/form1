@@ -1,12 +1,27 @@
-        let precioMercancia: number = 0;  // precio comprar o vender
-        if (this.role == 'cliente') {
-          precioMercancia = this.mercancias[index].m_precio_venta;
-        } else {
-          precioMercancia = this.mercancias[index].m_precio_compra;
-        }
+              <tbody class="table-group-divider">
+                <tr *ngFor = "let factura of facturasPaginated" (click) ="mostrarFactura(factura.factura_id)">
+                  <td>{{factura.factura_id}}</td>
+                  <td>{{factura.usuario_cliente.u_nombre}}</td>
+                  <td>{{factura.f_suma}}</td>
+                  <td *ngIf="!factura.f_tipo">Entrada</td>
+                  <td *ngIf="factura.f_tipo">Salida</td>
+                  <td *ngIf="!factura.f_tipo && !factura.f_aceptado">No aceptado</td>
+                  <td *ngIf="!factura.f_tipo && factura.f_aceptado" style="color:green">Aceptado</td>
+                  <td *ngIf="factura.f_tipo && !factura.f_aceptado">No preparado</td>
+                  <td *ngIf="factura.f_tipo && factura.f_aceptado">Preparado</td>
+                  <td>{{factura.created_at | date : "mediumDate"}}</td>
 
-Type 'number | undefined' is not assignable to type 'number'.
-  Type 'undefined' is not assignable to type 'number'.ts(2322)
+                  <!-- bloque para receptor y recogedor-->
+                  <td *ngIf = "role == 'receptor'">
+                    <button (click) ="controlarFactura(factura.factura_id)">Comprobar</button>
+                  </td>
+                  <td *ngIf = "role == 'recogedor'">
+                    <button (click) ="controlarFactura(factura.factura_id)">Recoger</button>
+                  </td>
+
+                </tr>
+
+              </tbody>
 
 
 
