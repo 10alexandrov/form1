@@ -1,4 +1,8 @@
-     Route::update('/mercancias/aceptar', [ApiMercanciaController::class, 'aceptar']);
+            $facturaControlado = Factura::findOrFail($id)-> get ();
+            if ($facturaControlado) {
+                $facturaControlado->update('f_suma_tramitacion' => $sumaFactura);
+                $facturaControlado->update('f_aceptado'=> $f_aceptado);
+            }
 
 
 
