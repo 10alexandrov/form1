@@ -1,12 +1,4 @@
-        $facturaControlado = Factura::findOrFail($id);  // renovar datos de la factura
-            if ($facturaControlado) {
-                $facturaControlado->update(['f_suma_tramitacion' => $sumaFactura,
-                                            'f_aceptado'=> $f_aceptado,
-                                            'f_fecha_tramitacion' => $date,
-                                            'f_id_responsable' => $f_id_responsable]);
-            }
-
-syntax error, unexpected 'update' (T_STRING)
+Route::post('/mercancias/aceptar', [ApiMercanciaController::class, 'aceptar']);
 
 
 
