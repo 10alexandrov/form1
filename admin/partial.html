@@ -1,4 +1,12 @@
-Route::post('/mercancias/aceptar', [ApiMercanciaController::class, 'aceptar']);
+        let precioMercancia: number = 0;  // precio comprar o vender
+        if (this.role == 'cliente') {
+          precioMercancia = this.mercancias[index].m_precio_venta;
+        } else {
+          precioMercancia = this.mercancias[index].m_precio_compra;
+        }
+
+Type 'number | undefined' is not assignable to type 'number'.
+  Type 'undefined' is not assignable to type 'number'.ts(2322)
 
 
 
