@@ -1,27 +1,24 @@
-              <tbody class="table-group-divider">
-                <tr *ngFor = "let factura of facturasPaginated" (click) ="mostrarFactura(factura.factura_id)">
-                  <td>{{factura.factura_id}}</td>
-                  <td>{{factura.usuario_cliente.u_nombre}}</td>
-                  <td>{{factura.f_suma}}</td>
-                  <td *ngIf="!factura.f_tipo">Entrada</td>
-                  <td *ngIf="factura.f_tipo">Salida</td>
-                  <td *ngIf="!factura.f_tipo && !factura.f_aceptado">No aceptado</td>
-                  <td *ngIf="!factura.f_tipo && factura.f_aceptado" style="color:green">Aceptado</td>
-                  <td *ngIf="factura.f_tipo && !factura.f_aceptado">No preparado</td>
-                  <td *ngIf="factura.f_tipo && factura.f_aceptado">Preparado</td>
-                  <td>{{factura.created_at | date : "mediumDate"}}</td>
+<div *ngFor="let table of tables; let tableIndex = index">
+  <table border="1">
+    <tbody>
+      <tr *ngFor="let row of rows; let rowIndex = index">
+        <td *ngFor="let col of cols; let colIndex = index" [attr.id]="getId(tableIndex, rowIndex, colIndex)">
+          {{ getId(tableIndex, rowIndex, colIndex) }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+</div>
 
-                  <!-- bloque para receptor y recogedor-->
-                  <td *ngIf = "role == 'receptor'">
-                    <button (click) ="controlarFactura(factura.factura_id)">Comprobar</button>
-                  </td>
-                  <td *ngIf = "role == 'recogedor'">
-                    <button (click) ="controlarFactura(factura.factura_id)">Recoger</button>
-                  </td>
+  tables = Array.from({ length: 4 }); // Массив на 4 таблицы
+  rows = Array.from({ length: 3 });   // Массив на 3 строки
+  cols = Array.from({ length: 10 });  // Массив на 10 столбцов
 
-                </tr>
-
-              </tbody>
+  getId(tableIndex: number, rowIndex: number, colIndex: number): string {
+    // Рассчитываем уникальный порядковый номер ячейки
+    return `cell-${tableIndex * 30 + rowIndex * 10 + colIndex + 1}`;
+  }
 
 
 
