@@ -1,12 +1,22 @@
-      <table>
-        <tbody>
-          <tr *ngFor="let row of rows; let rowIndex = index">
-            <td *ngFor="let col of cols; let colIndex = index" [attr.id]="getId(tableIndex, rowIndex, colIndex)" (mouseenter) = mostrarInfo({{ getId(tableIndex, rowIndex, colIndex) }})>
-              <div class="celda"> {{ getId(tableIndex, rowIndex, colIndex) }} </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+.trigger-div {
+  width: 200px;
+  height: 50px;
+  background-color: lightblue;
+  cursor: pointer;
+  text-align: center;
+  line-height: 50px;
+}
+
+.popup {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 
 
 
