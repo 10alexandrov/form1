@@ -1,23 +1,4 @@
-$tables = ['A', 'B', 'C', 'D'];  // Названия таблиц
-        $rows = 3;  // Количество строк в каждой таблице
-        $cols = 10; // Количество колонок в каждой таблице
-        $counter = 1;  // Счетчик для ID ячейки
-
-        foreach ($tables as $table) {
-            for ($row = 1; $row <= $rows; $row++) {
-                for ($col = 1; $col <= $cols; $col++) {
-                    // Вставляем данные для каждой ячейки
-                    DB::table('lugares')->insert([
-                        'lugares_estanteria' => $table,
-                        'lugares_row' => $row,
-                        'lugares_column' => $col,
-                        'lugares_producto' => 0,  // Заполняем 0 для lugares_producto
-                    ]);
-                    $counter++;  // Увеличиваем счетчик для следующей ячейки
-                }
-            }
-        }
-    }
+Target class [Illuminate\Database\Seeders\LugareSeeder] does not exist.
 
 
 
