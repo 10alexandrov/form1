@@ -1,16 +1,17 @@
-Target class [Illuminate\Database\Seeders\LugareSeeder] does not exist.
+import { IProduct } from "./iproduct";
 
+export interface Ilugar {
 
+  id: number,
+  lugar_estanteria: char,
+  lugar_column: number,
+  lugar_planta: number,
+  lugar_producto: number,
+  lugar_llenado: number,
+  lugar_productoInfo: IProduct,
 
+}
 
-  tables = Array.from({ length: 4 }); // Массив на 4 таблицы
-  rows = Array.from({ length: 3 });   // Массив на 3 строки
-  cols = Array.from({ length: 10 });  // Массив на 10 столбцов
-
-  getId(tableIndex: number, rowIndex: number, colIndex: number): string {
-    // Рассчитываем уникальный порядковый номер ячейки
-    return `cell-${tableIndex * 30 + rowIndex * 10 + colIndex + 1}`;
-  }
 
 
 
