@@ -1,15 +1,14 @@
-<div *ngFor="let table of tables; let tableIndex = index">
-  <table border="1">
-    <tbody>
-      <tr *ngFor="let row of rows; let rowIndex = index">
-        <td *ngFor="let col of cols; let colIndex = index" [attr.id]="getId(tableIndex, rowIndex, colIndex)">
-          {{ getId(tableIndex, rowIndex, colIndex) }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <br>
-</div>
+      <table>
+        <tbody>
+          <tr *ngFor="let row of rows; let rowIndex = index">
+            <td *ngFor="let col of cols; let colIndex = index" [attr.id]="getId(tableIndex, rowIndex, colIndex)" (mouseenter) = mostrarInfo({{ getId(tableIndex, rowIndex, colIndex) }})>
+              <div class="celda"> {{ getId(tableIndex, rowIndex, colIndex) }} </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
 
   tables = Array.from({ length: 4 }); // Массив на 4 таблицы
   rows = Array.from({ length: 3 });   // Массив на 3 строки
