@@ -1,16 +1,10 @@
-import { IProduct } from "./iproduct";
-
-export interface Ilugar {
-
-  id: number,
-  lugar_estanteria: char,
-  lugar_column: number,
-  lugar_planta: number,
-  lugar_producto: number,
-  lugar_llenado: number,
-  lugar_productoInfo: IProduct,
-
-}
+          <tr *ngFor="let row of rows; let rowIndex = index">
+            <td *ngFor="let col of cols; let colIndex = index"
+                [attr.id]="getId(tableIndex, rowIndex, colIndex)"
+                (click) = "mostrarInfo( getId(tableIndex, rowIndex, colIndex), $event)">
+              <div class="celda" [ngStyle] ="getBackgroundColor (+getId(tableIndex, rowIndex, colIndex))"> {{ getId(tableIndex, rowIndex, colIndex) }} </div>
+            </td>
+          </tr>
 
 
 
