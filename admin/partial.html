@@ -1,8 +1,11 @@
-Log::info($lugar,$mercancia['m_id_productos']);
-
-[2024-10-19 08:36:14] local.ERROR: Argument 2 passed to Illuminate\Log\LogManager::info() must be of the type array, int given, called in /home/alumno/Desktop/Almacen/almacen/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 261 
-
-
+                            $lugar = Lugar::where('lugar_producto',$mercancia['m_id_productos']) -> first ();  // buscamos producto
+                                Log::info('do it2');
+                                if (!$lugar) { // si no hay lugarescon producto
+                                    Log::info('do it3');
+                                  $lugar = $this -> buscarLugarNuevo();   // buscamos lugar nuevo
+                                  $lugar -> lugar_producto = $mercancia['m_id_productos'];
+                                  $lugar -> lugar_cantidad = $mercancia['m_cantidad_recogida'];
+                                  $lugar -> lugar_llenado = $mercancia['m_cantidad_recogida']/$producto->p_cantidad_palet;
 
     deleteProducto (id: number): Observable<void> {
 
