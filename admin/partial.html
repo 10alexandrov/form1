@@ -1,4 +1,8 @@
-$lugar -> increment('lugar_cantidad',$mercancia['m_cantidad_recogida']);
+Argument 2 passed to Illuminate\Log\LogManager::info() must be of the type array, object given, called in /home/alumno/Desktop/Almacen/almacen/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 261 {"exception":"[object] (TypeError(code: 0): Argument 2 passed to Illuminate\\Log\\LogManager::info() must be of the type array, object given, called in /home/alumno/Desktop/Almacen/almacen/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 261 at /home/alumno/Desktop/Almacen/almacen/vendor/laravel/framework/src/Illuminate/Log/LogManager.php:629)
+[stacktrace]
+
+                            $lugar = Lugar::find($mercancia['m_id_productos']);  // buscamos producto
+                                Log::info('do it2', $lugar);
 
 
 
