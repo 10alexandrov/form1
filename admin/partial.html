@@ -1,23 +1,4 @@
-$lugar = null;
-$plantas = [1, 2, 3];  // Массив с порядком проверки этажей
-
-foreach ($plantas as $planta) {
-    $lugar = Lugar::where('lugar_llenado', 0)
-                ->where('lugar_planta', $planta)
-                ->first();
-
-    if ($lugar) {
-        break;  // Если нашли место, выходим из цикла
-    }
-}
-
-if ($lugar) {
-    // Запись найдена
-    return $lugar;
-} else {
-    // Запись не найдена
-    return response()->json(['message' => 'No available places found'], 404);
-}
+$lugar -> increment('lugar_cantidad',$mercancia['m_cantidad_recogida']);
 
 
 
