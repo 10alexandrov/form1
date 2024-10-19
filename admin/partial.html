@@ -1,4 +1,6 @@
-$lugar = Lugar::where('lugar_producto',$mercancia['m_id_productos']) -> find (); 
+Log::info($lugar,$mercancia['m_id_productos']);
+
+[2024-10-19 08:36:14] local.ERROR: Argument 2 passed to Illuminate\Log\LogManager::info() must be of the type array, int given, called in /home/alumno/Desktop/Almacen/almacen/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 261 
 
 
 
