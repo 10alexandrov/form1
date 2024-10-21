@@ -1,60 +1,19 @@
-                            $lugar = Lugar::where('lugar_producto',$mercancia['m_id_productos']) -> first ();  // buscamos producto
-                                Log::info('do it2');
-                                if (!$lugar) { // si no hay lugarescon producto
-                                    Log::info('do it3');
-                                  $lugar = $this -> buscarLugarNuevo();   // buscamos lugar nuevo
-                                  $lugar -> lugar_producto = $mercancia['m_id_productos'];
-                                  $lugar -> lugar_cantidad = $mercancia['m_cantidad_recogida'];
-                                  $lugar -> lugar_llenado = $mercancia['m_cantidad_recogida']/$producto->p_cantidad_palet;
+    public function indexWidthPlace()
+    {
+        $mercancias = Mercancia::all();
 
-    deleteProducto (id: number): Observable<void> {
+        if (isset ($mercancia)) {
+            foreach ($mercancias as $mercancia) {
+                const $lugar = Lugar::where('lugar_producto', $mercancia -> m_id_productos) -> first();  // Buscamos producto primero
+                $mercancia  -> m_lugar = $lugar -> lugar_estanteria + "-" + $lugar -> lugar_columnn + "-" + $lugar -> lugar_planta;
 
-      const headers = this.getHeaderAuth ();
+            }
+        }
 
-      const deleteURL = `http://localhost:8080/api/productos/${id}`;
-      if (this.authService.checkTokenExpiration()) {
-          return this.http.delete<void>(deleteURL, { headers });
-      } else {
-          return EMPTY;
-      }
-    }
-
-    createProducto (product: IProduct): Observable<any> {
-
-      const headers = this.getHeaderAuth ();
-
-      if (this.authService.checkTokenExpiration()) {
-        console.log('grab');
-        return this.http.post(this.productUrl, product, { headers});
-      } else {
-        console.log('no grab');
-        return EMPTY;
-      }
-    }
-
-    actualizarProducto (id: number, product: IProduct): Observable<any> {
-
-      const headers = this.getHeaderAuth ();
-      const urlConId = `${this.productUrl}/${id}`;
-
-      if (this.authService.checkTokenExpiration()) {
-        console.log('update');
-        return this.http.put(urlConId, product, { headers});
-      } else {
-        console.log('no update');
-        return EMPTY;
-      }
+        return $mercancias;
     }
 
 
-    getHeaderAuth (): HttpHeaders {  // creamos header para authenticacion
-      const token = this.authService.getToken();
-      return new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
-    }
-
-}
 
 <?php
 
