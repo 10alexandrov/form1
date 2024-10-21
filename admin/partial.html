@@ -1,4 +1,10 @@
-
+    <div class="d-flex">
+      <div class="d-flex"> Cantidad
+        <input *ngIf = "mercancia" #inputRef style="width:70px;" type="number" [(ngModel)]="mercancia.m_cantidad_recogida">
+      </div>
+      <button *ngIf = "mercancia && !mercancia.m_aceptado"  (click) = "aceptarMercancia( mercancia.id ?  mercancia.id : 0, inputRef.value)" class="btn btn-AW btn-warning">Aceptar </button>
+      <button *ngIf = "mercancia && mercancia.m_aceptado"  (click) = "aceptarMercancia(mercancia.id ?  mercancia.id : 0, inputRef.value)" class="btn btn-AW btn-success">Cancelar </button>
+    </div>
 
 
 /*
