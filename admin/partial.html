@@ -1,17 +1,4 @@
-    public function indexWidthPlace()
-    {
-        $mercancias = Mercancia::all();
-
-        if (isset ($mercancia)) {
-            foreach ($mercancias as $mercancia) {
-                const $lugar = Lugar::where('lugar_producto', $mercancia -> m_id_productos) -> first();  // Buscamos producto primero
-                $mercancia  -> m_lugar = $lugar -> lugar_estanteria + "-" + $lugar -> lugar_columnn + "-" + $lugar -> lugar_planta;
-
-            }
-        }
-
-        return $mercancias;
-    }
+Trying to get property 'lugar_estanteria' of non-object {"userId":10,"exception":"[object] (ErrorException(code: 0): Trying to get property 'lugar_estanteria' of non-object at
 
 
 
