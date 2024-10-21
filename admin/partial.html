@@ -1,21 +1,13 @@
-mercancias.sort((a, b) => {
-  const [secA, colA, floorA] = a.m_lugar.split('-');
-  const [secB, colB, floorB] = b.m_lugar.split('-');
+    this.mercancias.forEach(element => {
+      lugar: Ilugar = null;
+      this.lugarService.getLugar(element.m_id_productos).subscribe (
+        (data) => {lugar = data;},
+        (error) => { console.log('Error data de producto', error)}
+      );
 
-  // Сначала сравниваем секции (буквы)
-  if (secA < secB) return -1;
-  if (secA > secB) return 1;
+      this.lugares.push(lugar);
 
-  // Если секции одинаковые, сравниваем колонки (числа)
-  if (parseInt(colA) < parseInt(colB)) return -1;
-  if (parseInt(colA) > parseInt(colB)) return 1;
-
-  // Если секции и колонки одинаковые, сравниваем этажи (числа)
-  if (parseInt(floorA) < parseInt(floorB)) return -1;
-  if (parseInt(floorA) > parseInt(floorB)) return 1;
-
-  return 0;
-});
+    });
 
 <?php
 
