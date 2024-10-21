@@ -1,6 +1,21 @@
-Trying to get property 'lugar_estanteria' of non-object {"userId":10,"exception":"[object] (ErrorException(code: 0): Trying to get property 'lugar_estanteria' of non-object at
+mercancias.sort((a, b) => {
+  const [secA, colA, floorA] = a.m_lugar.split('-');
+  const [secB, colB, floorB] = b.m_lugar.split('-');
 
+  // Сначала сравниваем секции (буквы)
+  if (secA < secB) return -1;
+  if (secA > secB) return 1;
 
+  // Если секции одинаковые, сравниваем колонки (числа)
+  if (parseInt(colA) < parseInt(colB)) return -1;
+  if (parseInt(colA) > parseInt(colB)) return 1;
+
+  // Если секции и колонки одинаковые, сравниваем этажи (числа)
+  if (parseInt(floorA) < parseInt(floorB)) return -1;
+  if (parseInt(floorA) > parseInt(floorB)) return 1;
+
+  return 0;
+});
 
 <?php
 
