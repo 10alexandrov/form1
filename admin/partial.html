@@ -1,4 +1,14 @@
-Type 'EnvironmentProviders' is not assignable to type 'Provider'.ts(2322)
+<ul>
+    <li ng-class="{ active: isActive('/View1') }"><a href="#/View1">View 1</a></li>
+    <li ng-class="{ active: isActive('/View2') }"><a href="#/View2">View 2</a></li>
+    <li ng-class="{ active: isActive('/View3') }"><a href="#/View3">View 3</a></li>
+</ul>
+Within your AngularJS controller:
+
+$scope.isActive = function (viewLocation) {
+     var active = (viewLocation === $location.path());
+     return active;
+};
 
 
 /*
