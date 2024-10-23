@@ -1,19 +1,6 @@
-
-  aceptarFactura (controlarFacturaId: number, mercancias: IMercancia [], f_suma: number, usuario: number, aceptarFactura: boolean): Observable<IMercancia[]> {
-
-    const headers = this.getHeaderAuth ();
-    const body = {mercancias, f_suma, usuario, aceptarFactura };
-    const urlConId = `${this.mercanciaUrl}/aceptar/${controlarFacturaId}`;
-
-    if (this.authService.checkTokenExpiration()) {
-      console.log('update');
-      return this.http.post(urlConId, body, { headers});
-    } else {
-      console.log('no update');
-      return EMPTY;
-    }
-
-  }
+Type 'Observable<Object>' is not assignable to type 'Observable<IMercancia[]>'.
+  The 'Object' type is assignable to very few other types. Did you mean to use the 'any' type instead?
+    Type 'Object' is missing the following properties from type 'IMercancia[]': length, pop, push, concat, and 29 more.ts(2322)
 
 
 /*
