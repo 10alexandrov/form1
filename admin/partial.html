@@ -1,7 +1,6 @@
-[2024-10-23 12:58:06] local.ERROR: Creating default object from empty value {"userId":9,"exception":"[object] (ErrorException(code: 0): Creating default object from empty value at /home/alumno/Desktop/Almacen/almacen/app/Http/Controllers/Api/ApiMercanciaController.php:317)
-[stacktrace]
-#0 /home/alumno/Desktop/Almacen/almacen/app/Http/Controllers/Api/ApiMercanciaController.php(317): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Creating defaul...', '/home/alumno/De...', 317, Array)
-
+UPDATE lugares
+SET lugar_producto = 0, lugar_llenado = 0
+WHERE lugar_producto = 14;
 /*
 |--------------------------------------------------------------------------
 | API Routes
