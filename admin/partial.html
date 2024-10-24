@@ -1,4 +1,15 @@
-Unexpected token A in JSON at position 0
+        <td *ngIf = "role == 'receptor'">
+          <ng-container *ngIf = "mercancia.m_lugar && !mercancia.m_lugares">
+            {{mercancia.m_lugar}}
+          </ng-container>
+          <ng-container *ngIf = "mercancia.m_lugares">
+            <ng-container *ngFor ="let lugar of mercancia.m_lugares">
+              {{lugar.id}}
+            </ng-container>
+          </ng-container>
+        </td>
+
+NG9: Property 'id' does not exist on type 'never
 
 
 /*
