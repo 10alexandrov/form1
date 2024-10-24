@@ -1,6 +1,7 @@
-UPDATE lugares
-SET lugar_producto = 0, lugar_llenado = 0
-WHERE lugar_producto = 14;
+                            $mercancia['m_lugares'] = Lugar::where ('lugar_producto',$mercancia['m_id_productos']);
+                            Log::info($mercancia['m_lugares']);
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
